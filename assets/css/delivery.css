@@ -1,0 +1,140 @@
+/* Project: THL (The Healthy Lab - Real Food) */
+/*-----------------------------------*\
+  #CTA
+\*-----------------------------------*/
+.cta {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.cta::before {
+  bottom: auto;
+  top: 0;
+  background-image: url("../images/shape-grey.png");
+  transform: scaleY(-1);
+}
+
+.cta .section-title {
+  color: var(--white);
+  line-height: 1.5;
+  letter-spacing: -2px;
+  max-width: 17ch;
+  margin-inline: auto;
+}
+
+.cta .section-text {
+  color: var(--gainsboro);
+  margin-block: 25px 20px;
+}
+
+.cta .btn {
+  margin-inline: auto;
+}
+
+.cta-banner {
+  position: relative;
+  aspect-ratio: 1 / 0.9;
+}
+
+.cta-img { transform: scale(1); }
+
+.cta-banner .abs-img {
+  top: 50px;
+  left: 10px;
+}
+
+/*-----------------------------------*\
+  #DELIVERY
+\*-----------------------------------*/
+.delivery-content {
+  margin-block-end: 40px;
+}
+
+.delivery .section-title {
+  max-width: 17ch;
+  line-height: 1.6;
+  letter-spacing: -2px;
+}
+
+.delivery .section-text {
+  margin-block: 15px 25px;
+}
+
+.delivery-banner {
+  position: relative;
+  aspect-ratio: 1 / 0.86;
+}
+
+.delivery-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateX(-80px);
+  transition: var(--transition-2);
+}
+
+@media (min-width: 768px) {
+  /**
+   * CTA
+   */
+  .cta .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 30px;
+  }
+
+  .cta {
+    text-align: left;
+  }
+
+  .cta :is(.section-title, .btn) {
+    margin-inline: 0;
+  }
+
+  .cta-img { transform: scale(1); }
+}
+
+@media (min-width: 768px) {
+  /**
+   * DELIVERY
+   */
+  .delivery .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 50px;
+  }
+}
+
+@media (min-width: 992px) {
+  /**
+   * CTA
+   */
+  .cta-img { transform: scale(1); }
+
+  .cta-banner .abs-img {
+    left: -50px;
+  }
+
+  :is(.cta, .delivery) .section-title {
+    line-height: 1.2;
+  }
+}
+
+@media (min-width: 1200px) {
+  /**
+   * CTA
+   */
+  .cta {
+    --section-padding: 60px;
+  }
+
+  .cta .section-title {
+    max-width: 18ch;
+  }
+}
+

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Food Lab - The Healthy Lab</title>
+
+  <link rel="shortcut icon" href="./assets/images/50Tag.png" type="image/png">
+
+  <!-- Core CSS -->
+  <link rel="stylesheet" href="./assets/css/golden-harvest.css">
+  <link rel="stylesheet" href="./assets/css/style.css"> <!-- for the global btn -->
+  <link rel="stylesheet" href="./assets/css/nav.css">
+  <link rel="stylesheet" href="./assets/css/food-lab.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Rubik:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+</head>
+
+<body id="top" style="background: var(--isabelline);">
+
+  <!-- HEADER -->
+  <header class="header active" data-header style="background-color: var(--cinnabar); padding-block: 15px;">
+    <div class="container">
+      <h1>
+        <a href="index.html" class="logo"
+          style="color: white; font-weight: 700; font-size: 2.5rem; letter-spacing: -1px; text-decoration: none;">The
+          Healthy Lab</a>
+      </h1>
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+          <li class="nav-item"><a href="index.html#home" class="navbar-link" data-nav-link>Home</a></li>
+          <li class="nav-item"><a href="index.html#about" class="navbar-link" data-nav-link>About Us</a></li>
+          <li class="nav-item"><a href="index.html#food-menu" class="navbar-link" data-nav-link>Shop</a></li>
+        </ul>
+      </nav>
+      <div class="header-btn-group" style="display: flex; gap: 15px; align-items: center;">
+        <button class="cart-btn" id="cart-btn"
+          style="background: transparent; border: none; color: white; font-size: 2.4rem; position: relative; cursor: pointer;">
+          <ion-icon name="cart-outline"></ion-icon>
+          <span id="cart-badge"
+            style="position: absolute; top: -5px; right: -8px; background: var(--deep-saffron); color: white; font-size: 1.2rem; font-weight: bold; width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s;">0</span>
+        </button>
+        <a href="index.html" class="btn btn-hover" style="background-color: var(--deep-saffron); color: white;">Back to
+          Home</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- FOOD LAB SECTION -->
+  <main>
+    <!-- INTRO BANNER -->
+    <section class="food-lab-intro">
+      <div class="intro-overlay"></div>
+      <div class="container intro-content" style="text-align: left; width: 100%; padding-left: 5%;">
+        <h2 class="h1" style="color: white; font-family: var(--ff-rubik); font-size: 7rem; margin-top:0; line-height: 1.1; font-weight: 500; letter-spacing: -2px;">The Food Lab.<br>Crafted for you.
+        </h2>
+        <p style="color: #f1f5f9; font-size: 2.2rem; max-width: 650px; margin: 25px 0 0; line-height: 1.4; font-weight: 400;">We help individuals build tailored nutrition profiles to solve the world’s hardest diets.</p>
+        
+        <div style="margin-top: 40px; display: flex; gap: 30px;">
+          <a href="#builder-steps" style="color: white; font-size: 1.6rem; font-weight: 500; text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.4); padding-bottom: 5px; display: flex; align-items: center; gap: 8px;">Start building <ion-icon name="chevron-forward-outline"></ion-icon></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section food-lab-section">
+      <div class="container food-lab-container">
+
+        <!-- LEFT: BUILDER -->
+        <div class="lab-builder">
+          <div class="lab-header">
+            <span class="section-label"
+              style="color:var(--cinnabar); text-transform:uppercase; font-weight:600; letter-spacing:1px; margin-bottom: 10px; display:block;">Interactive
+              Meal Builder</span>
+            <h2 class="h2 section-title" style="margin-top:0;">Build Your <span class="accent"
+                style="color:var(--deep-saffron);">Perfect Bowl</span></h2>
+            <p style="color: #666; font-size: 1.6rem; margin-top: 15px;">Customize every element to fit your macros.
+              Watch your nutrition update in real-time.</p>
+          </div>
+
+          <div class="builder-steps" id="builder-steps">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- RIGHT: SUMMARY STICKY -->
+        <div class="lab-summary">
+          <div class="summary-card">
+            <h3 class="summary-title">Your Nutrition</h3>
+
+            <div class="macro-grid">
+              <div class="macro-item">
+                <span class="macro-val" id="val-cal">0</span>
+                <span class="macro-label">Calories</span>
+              </div>
+              <div class="macro-item">
+                <span class="macro-val" id="val-pro">0g</span>
+                <span class="macro-label">Protein</span>
+              </div>
+              <div class="macro-item">
+                <span class="macro-val" id="val-carb">0g</span>
+                <span class="macro-label">Carbs</span>
+              </div>
+              <div class="macro-item">
+                <span class="macro-val" id="val-fat">0g</span>
+                <span class="macro-label">Fats</span>
+              </div>
+            </div>
+
+            <div class="summary-divider"></div>
+
+            <h4 class="summary-subtitle">Bowl Composition</h4>
+            <ul class="composition-list" id="composition-list">
+              <li class="empty-msg">Start selecting ingredients...</li>
+            </ul>
+
+            <div class="summary-footer">
+              <div class="price-wrap">
+                <span class="price-label">Total Price:</span>
+                <span class="price-val" id="val-price">$9.99</span>
+              </div>
+              <button class="btn btn-hover checkout-btn"
+                style="background-color: var(--cinnabar); color: white; width: 100%; margin-top: 15px;">Add to
+                Cart</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast-container"
+    style="position: fixed; bottom: 30px; right: 30px; z-index: 9999; display: flex; flex-direction: column; gap: 10px;">
+  </div>
+
+  <!-- CART MODAL -->
+  <div id="cart-modal" class="modal-overlay">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 style="font-family: var(--ff-rubik); color: var(--color-brown-dark);">Your Cart</h2>
+        <button id="close-cart"
+          style="background: none; border: none; font-size: 2.4rem; cursor: pointer; color: var(--text-muted);"><ion-icon
+            name="close-outline"></ion-icon></button>
+      </div>
+      <div id="cart-items" class="cart-items-container">
+        <!-- Cart items go here -->
+      </div>
+      <div class="modal-footer">
+        <div class="cart-total-row">
+          <span style="font-size: 1.8rem; font-weight: 500;">Total</span>
+          <span id="cart-total-price" style="font-size: 2.4rem; font-weight: 700; color: var(--cinnabar);">$0.00</span>
+        </div>
+        <button class="btn btn-hover checkout-proceed-btn"
+          style="background-color: var(--cinnabar); color: white; width: 100%; margin-top: 15px;">Proceed to
+          Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- IONICONS -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <!-- CART JS (shared, must load first) -->
+  <script src="./assets/js/cart.js"></script>
+  <!-- FOOD LAB JS -->
+  <script src="./assets/js/food-lab.js"></script>
+</body>
+
+</html>

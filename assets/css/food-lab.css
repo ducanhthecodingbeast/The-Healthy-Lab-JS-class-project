@@ -1,0 +1,447 @@
+/* Project: THL (The Healthy Lab - Real Food) */
+/*-----------------------------------*\
+  #FOOD LAB CSS
+\*-----------------------------------*/
+
+/* --- INTRO BANNER --- */
+.food-lab-intro {
+  position: relative;
+  height: 80vh;
+  min-height: 600px;
+  background-image: url('../images/intro-mountain.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+}
+
+.intro-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(200, 80, 0, 0.4), rgba(0, 0, 0, 0.6));
+  z-index: 1;
+}
+
+.intro-content {
+  position: relative;
+  z-index: 2;
+}
+
+.food-lab-section {
+  padding-block: 60px 80px;
+}
+
+.food-lab-container {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+@media (min-width: 992px) {
+  .food-lab-container {
+    grid-template-columns: 1fr 380px;
+    gap: 60px;
+  }
+}
+
+/* --- LEFT: BUILDER STEPS --- */
+.lab-header {
+  margin-bottom: 40px;
+}
+
+.step-group {
+  margin-bottom: 40px;
+  background: var(--white, #ffffff);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--outline-warm, #f3e8d8);
+}
+
+.step-title {
+  font-family: var(--ff-rubik);
+  font-size: 2.2rem;
+  color: var(--color-brown-dark, #3e2723);
+  margin-bottom: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.step-desc {
+  font-size: 1.4rem;
+  color: var(--text-muted, #94a3b8);
+  margin-bottom: 20px;
+}
+
+.ingredient-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 15px;
+}
+
+.ingredient-card {
+  background: var(--surface-dim, #f8f9fa);
+  border: 2px solid transparent;
+  border-radius: 8px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.ingredient-card:hover {
+  background: var(--surface-0, #fffcf8);
+  border-color: #fbd38d;
+  /* light saffron */
+}
+
+.ingredient-card.selected {
+  background: var(--surface-0, #fffcf8);
+  border-color: var(--deep-saffron, #f59e0b);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+}
+
+.ingredient-name {
+  font-family: var(--ff-rubik);
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: var(--color-brown-dark);
+  margin-bottom: 5px;
+}
+
+.ingredient-cals {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+}
+
+.ingredient-price {
+  font-size: 1.2rem;
+  color: var(--cinnabar);
+  font-weight: 600;
+  margin-top: 5px;
+}
+
+/* --- RIGHT: SUMMARY STICKY --- */
+.lab-summary {
+  position: sticky;
+  top: 100px;
+}
+
+.summary-card {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--deep-saffron);
+}
+
+.summary-title {
+  font-family: var(--ff-rubik);
+  font-size: 2.4rem;
+  color: var(--color-brown-dark);
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.macro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.macro-item {
+  background: var(--surface-dim);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.macro-val {
+  display: block;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--deep-saffron);
+  font-family: var(--ff-rubik);
+  line-height: 1;
+  margin-bottom: 5px;
+}
+
+.macro-label {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.summary-divider {
+  height: 1px;
+  background: var(--outline-warm);
+  margin-block: 25px;
+}
+
+.summary-subtitle {
+  font-family: var(--ff-rubik);
+  font-size: 1.8rem;
+  color: var(--color-brown-dark);
+  margin-bottom: 15px;
+}
+
+.composition-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-height: 80px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.composition-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.composition-list::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+.composition-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-block: 8px;
+  border-bottom: 1px dashed var(--outline-warm);
+  font-size: 1.4rem;
+  color: var(--text-body);
+}
+
+.composition-item:last-child {
+  border-bottom: none;
+}
+
+.item-name {
+  font-weight: 500;
+}
+
+.item-cals {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+}
+
+.empty-msg {
+  color: var(--text-muted);
+  font-size: 1.4rem;
+  font-style: italic;
+  text-align: center;
+  padding-top: 20px;
+}
+
+.summary-footer {
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 2px solid var(--surface-dim);
+}
+
+.price-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--ff-rubik);
+}
+
+.price-label {
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--color-brown-dark);
+}
+
+.price-val {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--cinnabar);
+}
+
+/* --- FORMAT SELECTOR --- */
+.format-selector {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+  overflow-x: auto;
+  padding-bottom: 5px;
+  /* for scrollbar */
+}
+
+.format-btn {
+  flex: 1;
+  background: var(--surface-dim);
+  border: 2px solid var(--outline-warm);
+  border-radius: 8px;
+  padding: 15px;
+  font-family: var(--ff-rubik);
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.format-btn:hover {
+  background: var(--surface-0);
+  border-color: #fbd38d;
+}
+
+.format-btn.active {
+  background: var(--surface-0);
+  border-color: var(--deep-saffron);
+  color: var(--deep-saffron);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+}
+
+/* --- TOAST NOTIFICATION --- */
+.toast {
+  background: var(--white);
+  border-left: 4px solid var(--deep-saffron);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 15px 20px;
+  border-radius: 4px;
+  font-size: 1.4rem;
+  color: var(--color-brown-dark);
+  font-weight: 500;
+  animation: slideIn 0.3s ease forwards;
+  opacity: 0;
+  transform: translateX(100%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.toast ion-icon {
+  color: var(--deep-saffron);
+  font-size: 2rem;
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}
+
+/* --- CART MODAL --- */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-content {
+  background: var(--white);
+  border-radius: 12px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2);
+  transform: translateY(20px);
+  transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+  transform: translateY(0);
+}
+
+.modal-header {
+  padding: 20px 25px;
+  border-bottom: 1px solid var(--outline-warm);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-items-container {
+  padding: 20px 25px;
+  overflow-y: auto;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.cart-item {
+  background: var(--surface-dim);
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cart-item-info h4 {
+  font-family: var(--ff-rubik);
+  font-size: 1.6rem;
+  color: var(--color-brown-dark);
+  margin-bottom: 5px;
+}
+
+.cart-item-details {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+.cart-item-price {
+  font-weight: 700;
+  font-size: 1.6rem;
+  color: var(--cinnabar);
+}
+
+.modal-footer {
+  padding: 20px 25px;
+  border-top: 1px solid var(--outline-warm);
+  background: var(--surface-0);
+  border-radius: 0 0 12px 12px;
+}
+
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--ff-rubik);
+}

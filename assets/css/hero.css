@@ -1,0 +1,319 @@
+/* Project: THL (The Healthy Lab - Real Food) */
+/*-----------------------------------*\
+  #HERO V2 — Full-bleed Food Photography
+\*-----------------------------------*/
+
+/* ===== Section Shell ===== */
+.hero-v2 {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ===== Background Layer ===== */
+.hero-v2__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-v2__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.hero-v2__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.65) 0%,
+    rgba(0, 0, 0, 0.45) 40%,
+    rgba(0, 0, 0, 0.15) 70%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+}
+
+/* ===== Grid Layout ===== */
+.hero-v2__grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: center;
+  gap: 40px;
+  padding-block: 140px 100px;
+}
+
+/* ===== Text Content (Left) ===== */
+.hero-v2__content {
+  max-width: 600px;
+}
+
+.hero-v2__title {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 800;
+  font-size: 4.8rem;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 20px;
+  letter-spacing: -1px;
+}
+
+.hero-v2__title em {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-weight: 800;
+  color: var(--white);
+}
+
+.hero-v2__text {
+  font-family: var(--ff-roboto);
+  font-size: 1.7rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+  max-width: 48ch;
+  margin-bottom: 32px;
+}
+
+/* ===== CTA Buttons ===== */
+.hero-v2__actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.hero-v2__cta-primary {
+  display: inline-block;
+  width: auto;
+  background-color: var(--deep-saffron);
+  color: var(--white);
+  font-family: var(--ff-rubik);
+  font-weight: 600;
+  font-size: 1.5rem;
+  padding: 14px 32px;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: var(--transition-1);
+  letter-spacing: 0.3px;
+}
+
+.hero-v2__cta-primary:hover {
+  background-color: var(--dark-orange);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(255, 157, 45, 0.35);
+}
+
+.hero-v2__cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--ff-rubik);
+  font-weight: 500;
+  font-size: 1.5rem;
+  color: var(--white);
+  padding: 14px 24px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: var(--transition-1);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(4px);
+}
+
+.hero-v2__cta-secondary:hover {
+  border-color: var(--white);
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateY(-2px);
+}
+
+/* ===== Visual (Right) — Bowl Card ===== */
+.hero-v2__visual {
+  display: none;
+}
+
+.hero-v2__card {
+  position: relative;
+  width: 340px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  transform: rotate(3deg);
+  transition: transform 0.4s ease;
+}
+
+.hero-v2__card:hover {
+  transform: rotate(0deg) scale(1.03);
+}
+
+.hero-v2__card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Rating Badge */
+.hero-v2__rating {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--white);
+  padding: 12px 18px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  width: fit-content;
+  margin-top: 16px;
+  margin-left: 30px;
+  animation: floatBadge 3s ease-in-out infinite;
+}
+
+@keyframes floatBadge {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.hero-v2__rating-star {
+  font-size: 2.2rem;
+}
+
+.hero-v2__rating-label {
+  display: block;
+  font-family: var(--ff-rubik);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--sonic-silver);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.hero-v2__rating-score {
+  font-family: var(--ff-rubik);
+  font-size: 1.3rem;
+  color: var(--rich-black-fogra-29);
+}
+
+.hero-v2__rating-score strong {
+  font-weight: 700;
+  color: var(--rich-black-fogra-29);
+}
+
+/* ===== Stats Bar ===== */
+.hero-v2__stats {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 2;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.0) 100%
+  );
+  padding-block: 40px 30px;
+}
+
+.hero-v2__stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  text-align: center;
+}
+
+.hero-v2__stat-num {
+  display: block;
+  font-family: var(--ff-rubik);
+  font-weight: 700;
+  font-size: 2.4rem;
+  color: var(--deep-saffron);
+  letter-spacing: -0.5px;
+}
+
+.hero-v2__stat-star {
+  color: var(--deep-saffron);
+}
+
+.hero-v2__stat-label {
+  display: block;
+  font-family: var(--ff-rubik);
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+
+/* ============================
+   RESPONSIVE
+   ============================ */
+
+/* Tablet — show visual, 2-col grid */
+@media (min-width: 768px) {
+  .hero-v2__grid {
+    grid-template-columns: 1fr 1fr;
+    padding-block: 160px 130px;
+  }
+
+  .hero-v2__visual {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .hero-v2__title {
+    font-size: 5.6rem;
+  }
+
+  .hero-v2__stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Desktop */
+@media (min-width: 992px) {
+  .hero-v2__title {
+    font-size: 6.8rem;
+  }
+
+  .hero-v2__text {
+    font-size: 1.8rem;
+  }
+
+  .hero-v2__card {
+    width: 380px;
+  }
+
+  .hero-v2__stat-num {
+    font-size: 3rem;
+  }
+
+  .hero-v2__stat-label {
+    font-size: 1.2rem;
+  }
+}
+
+/* Wide Desktop */
+@media (min-width: 1200px) {
+  .hero-v2 {
+    min-height: 100vh;
+  }
+
+  .hero-v2__title {
+    font-size: 7.6rem;
+  }
+
+  .hero-v2__card {
+    width: 420px;
+  }
+
+  .hero-v2__grid {
+    padding-block: 180px 150px;
+  }
+}
