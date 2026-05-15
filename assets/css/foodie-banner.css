@@ -258,7 +258,10 @@
   border-radius: var(--radius-4);
   font-family: var(--ff-rubik);
   font-weight: var(--fw-600);
-  display: inline-block;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   transition: var(--transition-1);
 }
 
@@ -270,6 +273,10 @@
 .btn-green {
   background-color: #3f9b23;
   color: var(--white);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .btn-green:hover {
@@ -289,22 +296,22 @@
 
 /* Image positioning */
 .bento-item-1 .bento-img {
-  right: -60px;
-  bottom: -60px;
-  width: 400px;
-  height: 400px;
+  right: -20px;
+  bottom: -20px;
+  width: 220px;
+  height: 220px;
 }
 
 .bento-item-2 .bento-img {
-  right: -10px;
-  bottom: -10px;
-  width: 180px;
-  height: 180px;
+  right: -20px;
+  bottom: -20px;
+  width: 220px;
+  height: 220px;
 }
 
 .bento-item-3 .bento-img {
-  right: -30px;
-  bottom: -30px;
+  right: -20px;
+  bottom: -20px;
   width: 220px;
   height: 220px;
 }
@@ -312,8 +319,8 @@
 .bento-item-4 .bento-img {
   left: -20px;
   bottom: -20px;
-  width: 280px;
-  height: 280px;
+  width: 220px;
+  height: 220px;
 }
 
 @media (min-width: 992px) {

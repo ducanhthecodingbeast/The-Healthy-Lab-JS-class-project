@@ -3,6 +3,19 @@
   #HERO V2 — Full-bleed Food Photography
 \*-----------------------------------*/
 
+/* ===== Animations ===== */
+@keyframes fadeUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ===== Section Shell ===== */
 .hero-v2 {
   position: relative;
@@ -30,13 +43,11 @@
 .hero-v2__overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to right,
-    rgba(0, 0, 0, 0.65) 0%,
-    rgba(0, 0, 0, 0.45) 40%,
-    rgba(0, 0, 0, 0.15) 70%,
-    rgba(0, 0, 0, 0.05) 100%
-  );
+  background: linear-gradient(to right,
+      rgba(0, 0, 0, 0.35) 0%,
+      rgba(0, 0, 0, 0.20) 40%,
+      rgba(0, 0, 0, 0.05) 70%,
+      rgba(0, 0, 0, 0.0) 100%);
 }
 
 /* ===== Grid Layout ===== */
@@ -63,13 +74,15 @@
   color: var(--white);
   margin-bottom: 20px;
   letter-spacing: -1px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out forwards;
 }
 
 .hero-v2__title em {
-  font-family: 'Playfair Display', serif;
-  font-style: italic;
+  font-family: 'Rubik', sans-serif;
+  font-style: normal;
   font-weight: 800;
-  color: var(--white);
+  color: var(--deep-saffron);
 }
 
 .hero-v2__text {
@@ -79,29 +92,40 @@
   color: rgba(255, 255, 255, 0.8);
   max-width: 48ch;
   margin-bottom: 32px;
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out forwards;
+  animation-delay: 0.2s;
 }
 
 /* ===== CTA Buttons ===== */
 .hero-v2__actions {
   display: flex;
   align-items: center;
-  gap: 24px;
+  gap: 2px;
   flex-wrap: wrap;
+  opacity: 0;
+  animation: fadeUp 0.8s ease-out forwards;
+  animation-delay: 0.4s;
 }
 
 .hero-v2__cta-primary {
-  display: inline-block;
-  width: auto;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 170px;
   background-color: var(--deep-saffron);
   color: var(--white);
   font-family: var(--ff-rubik);
   font-weight: 600;
-  font-size: 1.5rem;
-  padding: 14px 32px;
-  border-radius: 6px;
+  font-size: 1.35rem;
+  padding: 12px 15px 12px 0;
+  /* Pad right to visually center text */
+  border-radius: 6px 0 0 6px;
   text-decoration: none;
   transition: var(--transition-1);
   letter-spacing: 0.3px;
+  clip-path: polygon(0 0, 100% 0, calc(100% - 15px) 100%, 0 100%);
 }
 
 .hero-v2__cta-primary:hover {
@@ -111,26 +135,53 @@
 }
 
 .hero-v2__cta-secondary {
+  position: relative;
   display: inline-flex;
+  justify-content: center;
   align-items: center;
-  gap: 6px;
+  text-align: center;
+  width: 170px;
   font-family: var(--ff-rubik);
-  font-weight: 500;
-  font-size: 1.5rem;
-  color: var(--white);
-  padding: 14px 24px;
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
-  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1.35rem;
+  color: var(--deep-saffron);
+  padding: 12px 0 12px 15px;
+  /* Pad left to visually center text */
+  border-radius: 0 6px 6px 0;
   text-decoration: none;
   transition: var(--transition-1);
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(4px);
+  background: transparent;
+  clip-path: polygon(15px 0, 100% 0, 100% 100%, 0 100%);
+  border: none;
+  z-index: 1;
+}
+
+.hero-v2__cta-secondary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--deep-saffron);
+  z-index: -2;
+  border-radius: 0 6px 6px 0;
+}
+
+.hero-v2__cta-secondary::after {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  background: var(--white);
+  z-index: -1;
+  border-radius: 0 4px 4px 0;
+  clip-path: polygon(14px 0, 100% 0, 100% 100%, 0 100%);
+  transition: var(--transition-1);
 }
 
 .hero-v2__cta-secondary:hover {
-  border-color: var(--white);
-  background: rgba(255, 255, 255, 0.12);
   transform: translateY(-2px);
+}
+
+.hero-v2__cta-secondary:hover::after {
+  background: #fff5eb;
 }
 
 /* ===== Visual (Right) — Bowl Card ===== */
@@ -140,6 +191,7 @@
 
 .hero-v2__card {
   position: relative;
+  left: 30px;
   width: 340px;
   border-radius: 16px;
   overflow: hidden;
@@ -171,11 +223,20 @@
   margin-top: 16px;
   margin-left: 30px;
   animation: floatBadge 3s ease-in-out infinite;
+  scale: 0.85;
+  transform-origin: left top;
 }
 
 @keyframes floatBadge {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
 }
 
 .hero-v2__rating-star {
@@ -210,11 +271,9 @@
   left: 0;
   width: 100%;
   z-index: 2;
-  background: linear-gradient(
-    to top,
-    rgba(0, 0, 0, 0.55) 0%,
-    rgba(0, 0, 0, 0.0) 100%
-  );
+  background: linear-gradient(to top,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.0) 100%);
   padding-block: 40px 30px;
 }
 
@@ -226,12 +285,16 @@
 }
 
 .hero-v2__stat-num {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
   font-family: var(--ff-rubik);
   font-weight: 700;
   font-size: 2.4rem;
   color: var(--deep-saffron);
   letter-spacing: -0.5px;
+  white-space: nowrap;
 }
 
 .hero-v2__stat-star {
@@ -265,6 +328,9 @@
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
+    opacity: 0;
+    animation: fadeUp 1s ease-out forwards;
+    animation-delay: 0.6s;
   }
 
   .hero-v2__title {

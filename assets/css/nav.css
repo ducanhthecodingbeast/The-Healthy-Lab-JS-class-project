@@ -55,6 +55,10 @@
   letter-spacing: -2px;
 }
 
+.header.active .logo {
+  color: var(--deep-saffron);
+}
+
 .logo .span {
   display: inline-block;
   color: var(--deep-saffron);
@@ -262,3 +266,77 @@
   }
 }
 
+/*-----------------------------------*\
+  #HEADER BUTTONS (Redesign)
+\*-----------------------------------*/
+
+.cart-btn-outline {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--btn-color);
+  font-family: var(--ff-rubik);
+  font-size: 1.5rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: var(--transition-1);
+}
+
+.cart-btn-outline:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cart-btn-outline ion-icon {
+  font-size: 2.2rem;
+}
+
+.header.active .cart-btn-outline {
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+.header.active .cart-btn-outline:hover {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+#cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--deep-saffron);
+  color: white;
+  font-size: 1.1rem;
+  font-weight: bold;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.order-now-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--deep-saffron);
+  color: var(--white);
+  font-family: var(--ff-rubik);
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding: 10px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: var(--transition-1);
+}
+
+.order-now-btn:hover {
+  background-color: var(--dark-orange);
+  transform: translateY(-2px);
+}

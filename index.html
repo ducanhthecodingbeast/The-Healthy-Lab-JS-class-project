@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Healthy Lab — Real Food. Real Energy. Real You.</title>
+  <title>The Healthy Lab</title>
 
   <!-- 
     - favicon
@@ -55,7 +55,7 @@
 
       <h1>
         <a href="#" class="logo"
-          style="color: white; font-weight: 700; font-size: 2.5rem; letter-spacing: -1px; text-decoration: none;">The
+          style="font-weight: 700; font-size: 2.5rem; letter-spacing: -1px; text-decoration: none;">The
           Healthy Lab</a>
       </h1>
 
@@ -86,16 +86,14 @@
       </nav>
 
       <div class="header-btn-group">
-        <button class="search-btn" aria-label="Search" data-search-btn>
-          <ion-icon name="search-outline"></ion-icon>
+
+
+        <button class="cart-btn-outline" id="cart-btn" aria-label="Cart">
+          <ion-icon name="bag-handle-outline"></ion-icon> Cart
+          <span id="cart-badge">0</span>
         </button>
 
-        <button class="cart-btn" id="cart-btn" aria-label="Cart" style="background:transparent; border:none; color:white; font-size:2.4rem; position:relative; cursor:pointer;">
-          <ion-icon name="cart-outline"></ion-icon>
-          <span id="cart-badge" style="position:absolute; top:-5px; right:-8px; background:var(--deep-saffron); color:white; font-size:1.2rem; font-weight:bold; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.3s;">0</span>
-        </button>
-
-        <a href="#food-menu" class="btn btn-hover" style="background-color: var(--deep-saffron); color: white; text-decoration: none;">Order Now</a>
+        <a href="#food-menu" class="order-now-btn btn-hover">Order Now</a>
 
         <button class="nav-toggle-btn" aria-label="Toggle Menu" data-menu-toggle-btn>
           <span class="line top"></span>
@@ -111,24 +109,7 @@
 
 
 
-  <!-- 
-    - #SEARCH BOX
-  -->
 
-  <div class="search-container" data-search-container>
-
-    <div class="search-box">
-      <input type="search" name="search" aria-label="Search here" placeholder="Type keywords here..."
-        class="search-input">
-
-      <button class="search-submit" aria-label="Submit search" data-search-submit-btn>
-        <ion-icon name="search-outline"></ion-icon>
-      </button>
-    </div>
-
-    <button class="search-close-btn" aria-label="Cancel search" data-search-close-btn></button>
-
-  </div>
 
 
 
@@ -149,18 +130,19 @@
           <!-- LEFT: Text Content -->
           <div class="hero-v2__content">
             <h2 class="hero-v2__title">
-              Real <em>Food.</em><br>
-              Real <em>Energy.</em><br>
-              Real <em>You.</em>
+              Real <em>Food</em><br>
+              Real <em>Energy</em><br>
+              Real <em>You</em><br>
             </h2>
 
             <p class="hero-v2__text">
-              Every bite is a step toward your best self. We blend culinary craft with nutritional science — in a kitchen we call The Lab.
+              Every bite is a step toward your best self. We blend culinary craft with nutritional science — in a
+              kitchen we call The Lab.
             </p>
 
             <div class="hero-v2__actions">
-              <a href="#food-menu" class="btn btn-hover hero-v2__cta-primary">Explore Menu →</a>
-              <a href="food-lab.html" class="hero-v2__cta-secondary">Enter The Lab 🧪</a>
+              <a href="#food-menu" class="btn btn-hover hero-v2__cta-primary">Explore Menu</a>
+              <a href="food-lab.html" class="hero-v2__cta-secondary">Enter The Lab</a>
             </div>
           </div>
 
@@ -229,7 +211,7 @@
                   </svg>
                 </div>
                 <h3 class="h3 card-title">Fresh Juices</h3>
-                <p class="card-text">Cold-pressed daily from locally sourced fruits Ã¢â‚¬â€ vitamins in every sip.</p>
+                <p class="card-text">Cold-pressed daily from locally sourced fruits — vitamins in every sip.</p>
                 <img src="./assets/images/promo-1.png" width="300" height="300" loading="lazy" alt="Fresh Juices"
                   class="w-100 card-banner">
               </div>
@@ -301,7 +283,7 @@
                   </svg>
                 </div>
                 <h3 class="h3 card-title">Nourish Bowls</h3>
-                <p class="card-text">Grain base, roasted veg, legumes and superfood toppings Ã¢â‚¬â€ fuel your day.</p>
+                <p class="card-text">Grain base, roasted veg, legumes and superfood toppings — fuel your day.</p>
                 <img src="./assets/images/promo-5.png" width="300" height="300" loading="lazy" alt="Nourish Bowls"
                   class="w-100 card-banner">
               </div>
@@ -329,7 +311,7 @@
             <!-- LEFT: Image Gallery -->
             <div class="about__gallery reveal">
               <div class="about__gallery-item"> <img src="./assets/images/Chef.jpg" alt="Healthy Plate"> </div>
-              <div class="about__gallery-item"> <img src="./assets/images/Salad.jpg" alt="Organic Salad"> </div>
+              <div class="about__gallery-item"> <img src="./assets/images/Salad.png" alt="Organic Salad"> </div>
               <div class="about__gallery-item"> <img src="./assets/images/bento-salad.png" alt="Bento Box"> </div>
             </div>
 
@@ -339,8 +321,8 @@
                 style="color:var(--cinnabar); font-size:var(--fs-4); text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:10px;">Our
                 Story</span>
               <h2 class="h2 section-title"
-                style="font-family:var(--ff-rubik); font-weight:600; line-height:1.2; margin-top:0;">Where <span
-                  class="accent" style="color:var(--deep-saffron);">Science</span> Meets Soul Food.</h2>
+                style="font-family:var(--ff-rubik); font-weight:600; line-height:1.2; margin-top:0; max-width:unset; white-space: nowrap;">
+                Where <div class="accent" style="display: inline; color:var(--deep-saffron);">Science</div> Meets Soul Food</h2>
               <p class="section-text"
                 style="color:var(--sonic-silver); font-size:1.6rem; line-height:1.7; margin-bottom:20px;">
                 Discover wholesome, scientifically-supported meals that taste amazing and nourish your well-being. We
@@ -391,14 +373,14 @@
         <div class="container">
 
           <div class="cta-content">
-            <h2 class="h2 section-title" style="margin-bottom: 10px; color: white;">
-              Build Your
-              <span class="span" style="display: inline; color: var(--deep-saffron);">Perfect</span><br>Creation.
+            <h2 class="h2 section-title" style="margin-bottom: 10px; color: white; white-space: nowrap;">
+              Craft Your
+              <div class="span" style="display: inline; color: var(--deep-saffron);">Dream</div> Bowl!
             </h2>
 
             <p class="section-text" style="margin-bottom: 20px; color: var(--gainsboro);">
-              Our interactive meal builder lets you design a bowl as unique as you are. Watch your nutrition update in
-              real time as you customize every element.
+              Get ready to mix, match, and create! Our fun, interactive builder lets you whip up a meal that's 100% you.
+              Watch your healthy stats update instantly as you pick your favorite fresh ingredients.
             </p>
 
             <ul class="section-text"
@@ -421,12 +403,12 @@
             style="display: flex; justify-content: center; align-items: center; position: relative; transform: translateX(40px);">
             <div class="spin-plate-anim"
               style="width: 100%; max-width: 650px; aspect-ratio: 1 / 1; border-radius: 50%; overflow: hidden; display: flex; justify-content: center; align-items: center;">
-              <img src="./assets/images/Salad.jpg" width="700" height="700" loading="lazy" alt="Fresh healthy bowl"
-                class="w-100 cta-img" style="object-fit: cover; transform: scale(1.35);">
+              <img src="./assets/images/Salad.png" width="700" height="700" loading="lazy" alt="Fresh healthy bowl"
+                class="w-100 cta-img" style="object-fit: cover;">
             </div>
 
-            <img src="./assets/images/50Tag.png" width="324" height="339" loading="lazy" alt="Build your own"
-              class="abs-img scale-up-anim" style="z-index: 2; width: 324px; max-width: 45%;">
+            <img src="./assets/images/sale-shape.png" width="216" height="226" loading="lazy" alt="Up to 50% Off"
+              class="abs-img" style="z-index: 2; width: 216px; max-width: 30%;">
           </figure>
 
         </div>
@@ -733,7 +715,8 @@
               invasion of the 1120s, while it is also known that many restaurants were run by families.
             </p>
 
-            <a href="#food-menu" class="btn btn-hover" style="text-decoration:none; display:inline-block; width:auto;">Order Now</a>
+            <a href="#food-menu" class="btn btn-hover"
+              style="text-decoration:none; display:inline-block; width:auto;">Order Now</a>
           </div>
 
           <figure class="delivery-banner">
@@ -776,7 +759,9 @@
             <!-- Review 1 -->
             <div class="testimonial-card">
               <div class="testimonial-card__quote">"</div>
-              <p class="testimonial-card__text">The interactive meal builder completely changed how I eat lunch. I love being able to tune my macros on the fly, and the organic ingredients taste incredibly fresh every single time.</p>
+              <p class="testimonial-card__text">The interactive meal builder completely changed how I eat lunch. I love
+                being able to tune my macros on the fly, and the organic ingredients taste incredibly fresh every single
+                time.</p>
               <div class="testimonial-card__footer">
                 <div class="testimonial-card__avatar">
                   <img src="./assets/images/avatar-1.jpg" alt="Robert William">
@@ -791,7 +776,8 @@
             <!-- Review 2 -->
             <div class="testimonial-card">
               <div class="testimonial-card__quote">"</div>
-              <p class="testimonial-card__text">Finding healthy, scientifically-backed food that actually tastes like soul food is a game changer. The smoked tofu protein is hands down the best I've ever had.</p>
+              <p class="testimonial-card__text">Finding healthy, scientifically-backed food that actually tastes like
+                soul food is a game changer. The smoked tofu protein is hands down the best I've ever had.</p>
               <div class="testimonial-card__footer">
                 <div class="testimonial-card__avatar">
                   <img src="./assets/images/avatar-2.jpg" alt="Thomas Josef">
@@ -806,7 +792,9 @@
             <!-- Review 3 -->
             <div class="testimonial-card">
               <div class="testimonial-card__quote">"</div>
-              <p class="testimonial-card__text">I would be lost without The Healthy Lab. Their transparent nutrition tracking helps me stay on top of my fitness goals without sacrificing flavor. Absolutely outstanding.</p>
+              <p class="testimonial-card__text">I would be lost without The Healthy Lab. Their transparent nutrition
+                tracking helps me stay on top of my fitness goals without sacrificing flavor. Absolutely outstanding.
+              </p>
               <div class="testimonial-card__footer">
                 <div class="testimonial-card__avatar">
                   <img src="./assets/images/avatar-3.jpg" alt="Charles Richard">
@@ -821,7 +809,9 @@
             <!-- Review 4 -->
             <div class="testimonial-card">
               <div class="testimonial-card__quote">"</div>
-              <p class="testimonial-card__text">Finally, a place that takes food science seriously without making it boring. The Heirloom Caesar Salad is my daily go-to. My energy levels have never been this consistent!</p>
+              <p class="testimonial-card__text">Finally, a place that takes food science seriously without making it
+                boring. The Heirloom Caesar Salad is my daily go-to. My energy levels have never been this consistent!
+              </p>
               <div class="testimonial-card__footer">
                 <div class="testimonial-card__avatar">
                   <img src="./assets/images/avatar-1.jpg" alt="Sarah Jenkins">
@@ -836,7 +826,8 @@
             <!-- Review 5 -->
             <div class="testimonial-card">
               <div class="testimonial-card__quote">"</div>
-              <p class="testimonial-card__text">I love the eco-friendly packaging and the commitment to local sourcing. The food arrives fast, fresh, and perfectly aligned with my complex dietary requirements.</p>
+              <p class="testimonial-card__text">I love the eco-friendly packaging and the commitment to local sourcing.
+                The food arrives fast, fresh, and perfectly aligned with my complex dietary requirements.</p>
               <div class="testimonial-card__footer">
                 <div class="testimonial-card__avatar">
                   <img src="./assets/images/avatar-2.jpg" alt="Michael Chang">
@@ -851,7 +842,8 @@
             <!-- Review 6 -->
             <div class="testimonial-card">
               <div class="testimonial-card__quote">"</div>
-              <p class="testimonial-card__text">The Buddha Brown Rice Bowl is perfection. Every element feels purposefully selected to nourish the body. The Healthy Lab is exactly what my busy lifestyle needed.</p>
+              <p class="testimonial-card__text">The Buddha Brown Rice Bowl is perfection. Every element feels
+                purposefully selected to nourish the body. The Healthy Lab is exactly what my busy lifestyle needed.</p>
               <div class="testimonial-card__footer">
                 <div class="testimonial-card__avatar">
                   <img src="./assets/images/avatar-3.jpg" alt="Elena Rodriguez">
@@ -879,9 +871,7 @@
                 <h3 class="bento-title">Fresh & Healthy!<br>Get 30% Off Your<br>First Week</h3>
                 <a href="#food-menu" class="btn btn-green">Order Now</a>
               </div>
-              <div class="bento-photo-wrapper">
-                <img src="./assets/images/bento-salad-bg.png" alt="Salad Bowl" class="bento-photo" loading="lazy">
-              </div>
+              <img src="./assets/images/promo-4.png" alt="Salad Bowl" class="bento-img" loading="lazy">
             </div>
 
             <!-- Block 2 -->
@@ -890,10 +880,7 @@
                 <h3 class="bento-title">Green Energy<br>Boost</h3>
                 <a href="#food-menu" class="btn bento-btn">Try Now</a>
               </div>
-              <div class="bento-photo-wrapper">
-                <img src="./assets/images/bento-smoothie-bg.png" alt="Green Smoothie" class="bento-photo"
-                  loading="lazy">
-              </div>
+              <img src="./assets/images/promo-1.png" alt="Green Smoothie" class="bento-img" loading="lazy">
             </div>
 
             <!-- Block 3 -->
@@ -902,16 +889,12 @@
                 <h3 class="bento-title">Natural<br>Sweets</h3>
                 <a href="#food-menu" class="btn bento-btn">Shop Now</a>
               </div>
-              <div class="bento-photo-wrapper">
-                <img src="./assets/images/bento-fruit-bg.png" alt="Fruit Bowl" class="bento-photo" loading="lazy">
-              </div>
+              <img src="./assets/images/promo-3.png" alt="Fruit Bowl" class="bento-img" loading="lazy">
             </div>
 
             <!-- Block 4 -->
             <div class="bento-item bento-item-4">
-              <div class="bento-photo-wrapper bento-photo-left">
-                <img src="./assets/images/bento-salmon-bg.png" alt="Salmon Meal" class="bento-photo" loading="lazy">
-              </div>
+              <img src="./assets/images/promo-2.png" alt="Salmon Meal" class="bento-img" loading="lazy">
               <div class="bento-content">
                 <h3 class="bento-title">Chef-Curated<br>Meal Plans</h3>
                 <a href="#food-menu" class="btn btn-green">Explore Plans</a>
@@ -933,7 +916,7 @@
           </h2>
 
           <p class="section-text">
-            Stories, science and simple recipes to help you build a life you love Ã¢â‚¬â€ one nourishing meal at a
+            Stories, science and simple recipes to help you build a life you love — one nourishing meal at a
             time.
           </p>
 
@@ -961,7 +944,7 @@
                     <a href="#" class="card-title">5 Morning Rituals That Actually Change Your Energy</a>
                   </h3>
                   <p class="card-text">
-                    From hydration timing to mindful movement Ã¢â‚¬â€ small habits that compound into lasting
+                    From hydration timing to mindful movement — small habits that compound into lasting
                     vitality...
                   </p>
                   <a href="#" class="btn-link">
@@ -994,7 +977,7 @@
                     <a href="#" class="card-title">The Power of Fermented Foods for Gut Health</a>
                   </h3>
                   <p class="card-text">
-                    Kimchi, kefir, miso Ã¢â‚¬â€ discover how ancient preservation unlocks your microbiome's
+                    Kimchi, kefir, miso — discover how ancient preservation unlocks your microbiome's
                     potential...
                   </p>
                   <a href="#" class="btn-link">
@@ -1027,7 +1010,7 @@
                     <a href="#" class="card-title">Building a Nourish Bowl: The Art of Balanced Eating</a>
                   </h3>
                   <p class="card-text">
-                    Grains, proteins, healthy fats and colour Ã¢â‚¬â€ a step-by-step guide to the perfect bowl...
+                    Grains, proteins, healthy fats and colour — a step-by-step guide to the perfect bowl...
                   </p>
                   <a href="#" class="btn-link">
                     <span>Read More</span>
@@ -1147,14 +1130,19 @@
 
 
   <!-- TOAST NOTIFICATION -->
-  <div id="toast-container" style="position:fixed; bottom:30px; right:30px; z-index:9999; display:flex; flex-direction:column; gap:10px;"></div>
+  <div id="toast-container"
+    style="position:fixed; bottom:30px; right:30px; z-index:9999; display:flex; flex-direction:column; gap:10px;"></div>
 
   <!-- CART MODAL -->
-  <div id="cart-modal" class="modal-overlay" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:10000; justify-content:center; align-items:center;">
-    <div class="modal-content" style="background:white; border-radius:12px; max-width:500px; width:90%; max-height:80vh; overflow-y:auto; padding:30px;">
-      <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+  <div id="cart-modal" class="modal-overlay"
+    style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:10000; justify-content:center; align-items:center;">
+    <div class="modal-content"
+      style="background:white; border-radius:12px; max-width:500px; width:90%; max-height:80vh; overflow-y:auto; padding:30px;">
+      <div class="modal-header"
+        style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
         <h2 style="font-family: var(--ff-rubik); color: var(--color-brown-dark, #332); margin:0;">Your Cart</h2>
-        <button id="close-cart" style="background:none; border:none; font-size:2.4rem; cursor:pointer; color:#999;">&times;</button>
+        <button id="close-cart"
+          style="background:none; border:none; font-size:2.4rem; cursor:pointer; color:#999;">&times;</button>
       </div>
       <div id="cart-items" class="cart-items-container">
         <!-- Cart items rendered by JS -->
@@ -1162,10 +1150,12 @@
       <div class="modal-footer" style="margin-top:20px; border-top:1px solid #eee; padding-top:20px;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
           <span style="font-size:1.8rem; font-weight:500;">Total</span>
-          <span id="cart-total-price" style="font-size:2.4rem; font-weight:700; color:var(--cinnabar, #c8500a);">$0.00</span>
+          <span id="cart-total-price"
+            style="font-size:2.4rem; font-weight:700; color:var(--cinnabar, #c8500a);">$0.00</span>
         </div>
         <button class="btn btn-hover checkout-proceed-btn"
-          style="background-color:var(--cinnabar, #c8500a); color:white; width:100%; margin-top:15px; padding:14px; font-size:1.6rem; border:none; border-radius:8px; cursor:pointer;">Proceed to Checkout</button>
+          style="background-color:var(--cinnabar, #c8500a); color:white; width:100%; margin-top:15px; padding:14px; font-size:1.6rem; border:none; border-radius:8px; cursor:pointer;">Proceed
+          to Checkout</button>
       </div>
     </div>
   </div>
