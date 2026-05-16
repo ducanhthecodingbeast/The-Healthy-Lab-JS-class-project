@@ -111,6 +111,7 @@
 }
 
 @media (min-width: 768px) {
+
   /**
    * BLOG
    */
@@ -124,6 +125,7 @@
 }
 
 @media (min-width: 992px) {
+
   /**
    * BLOG
    */
@@ -135,4 +137,3 @@
     --fs-3: 2.2rem;
   }
 }
-
