@@ -5,7 +5,7 @@
 .promo-list {
   display: flex;
   gap: 20px;
-  padding-block-end: 10px;
+  padding-block-end: 60px;
 }
 
 .promo-card {
