@@ -1,0 +1,333 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {},
+  "nodes": [
+    {
+      "label": "test_mq.py",
+      "file_type": "code",
+      "source_file": "test_mq.py",
+      "source_location": "L1",
+      "id": "test_mq_py",
+      "community": 3,
+      "norm_label": "test_mq.py"
+    },
+    {
+      "label": "test_split.py",
+      "file_type": "code",
+      "source_file": "test_split.py",
+      "source_location": "L1",
+      "id": "test_split_py",
+      "community": 4,
+      "norm_label": "test_split.py"
+    },
+    {
+      "label": "cart.js",
+      "file_type": "code",
+      "source_file": "assets\\js\\cart.js",
+      "source_location": "L1",
+      "id": "assets_js_cart_js",
+      "community": 5,
+      "norm_label": "cart.js"
+    },
+    {
+      "label": "food-lab.js",
+      "file_type": "code",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L1",
+      "id": "assets_js_food_lab_js",
+      "community": 0,
+      "norm_label": "food-lab.js"
+    },
+    {
+      "label": "init()",
+      "file_type": "code",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L194",
+      "id": "js_food_lab_init",
+      "community": 0,
+      "norm_label": "init()"
+    },
+    {
+      "label": "renderFormatSelector()",
+      "file_type": "code",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L204",
+      "id": "js_food_lab_renderformatselector",
+      "community": 0,
+      "norm_label": "renderformatselector()"
+    },
+    {
+      "label": "setFormat()",
+      "file_type": "code",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L220",
+      "id": "js_food_lab_setformat",
+      "community": 1,
+      "norm_label": "setformat()"
+    },
+    {
+      "label": "renderSteps()",
+      "file_type": "code",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L238",
+      "id": "js_food_lab_rendersteps",
+      "community": 1,
+      "norm_label": "rendersteps()"
+    },
+    {
+      "label": "createStep()",
+      "file_type": "code",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L248",
+      "id": "js_food_lab_createstep",
+      "community": 0,
+      "norm_label": "createstep()"
+    },
+    {
+      "label": "handleSelect()",
+      "file_type": "code",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L279",
+      "id": "js_food_lab_handleselect",
+      "community": 1,
+      "norm_label": "handleselect()"
+    },
+    {
+      "label": "updateNutrition()",
+      "file_type": "code",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L302",
+      "id": "js_food_lab_updatenutrition",
+      "community": 1,
+      "norm_label": "updatenutrition()"
+    },
+    {
+      "label": "addToCart()",
+      "file_type": "code",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L347",
+      "id": "js_food_lab_addtocart",
+      "community": 2,
+      "norm_label": "addtocart()"
+    },
+    {
+      "label": "updateCartUI()",
+      "file_type": "code",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L393",
+      "id": "js_food_lab_updatecartui",
+      "community": 0,
+      "norm_label": "updatecartui()"
+    },
+    {
+      "label": "showToast()",
+      "file_type": "code",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L401",
+      "id": "js_food_lab_showtoast",
+      "community": 2,
+      "norm_label": "showtoast()"
+    },
+    {
+      "label": "script.js",
+      "file_type": "code",
+      "source_file": "assets\\js\\script.js",
+      "source_location": "L1",
+      "id": "assets_js_script_js",
+      "community": 6,
+      "norm_label": "script.js"
+    }
+  ],
+  "links": [
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L194",
+      "weight": 1.0,
+      "source": "assets_js_food_lab_js",
+      "target": "js_food_lab_init",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L204",
+      "weight": 1.0,
+      "source": "assets_js_food_lab_js",
+      "target": "js_food_lab_renderformatselector",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L220",
+      "weight": 1.0,
+      "source": "assets_js_food_lab_js",
+      "target": "js_food_lab_setformat",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L238",
+      "weight": 1.0,
+      "source": "assets_js_food_lab_js",
+      "target": "js_food_lab_rendersteps",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L248",
+      "weight": 1.0,
+      "source": "assets_js_food_lab_js",
+      "target": "js_food_lab_createstep",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L279",
+      "weight": 1.0,
+      "source": "assets_js_food_lab_js",
+      "target": "js_food_lab_handleselect",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L302",
+      "weight": 1.0,
+      "source": "assets_js_food_lab_js",
+      "target": "js_food_lab_updatenutrition",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L347",
+      "weight": 1.0,
+      "source": "assets_js_food_lab_js",
+      "target": "js_food_lab_addtocart",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L393",
+      "weight": 1.0,
+      "source": "assets_js_food_lab_js",
+      "target": "js_food_lab_updatecartui",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L401",
+      "weight": 1.0,
+      "source": "assets_js_food_lab_js",
+      "target": "js_food_lab_showtoast",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L195",
+      "weight": 1.0,
+      "source": "js_food_lab_init",
+      "target": "js_food_lab_renderformatselector",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L196",
+      "weight": 1.0,
+      "source": "js_food_lab_init",
+      "target": "js_food_lab_setformat",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L234",
+      "weight": 1.0,
+      "source": "js_food_lab_setformat",
+      "target": "js_food_lab_rendersteps",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L235",
+      "weight": 1.0,
+      "source": "js_food_lab_setformat",
+      "target": "js_food_lab_updatenutrition",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L390",
+      "weight": 1.0,
+      "source": "js_food_lab_addtocart",
+      "target": "js_food_lab_setformat",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L298",
+      "weight": 1.0,
+      "source": "js_food_lab_handleselect",
+      "target": "js_food_lab_rendersteps",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L299",
+      "weight": 1.0,
+      "source": "js_food_lab_handleselect",
+      "target": "js_food_lab_updatenutrition",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "context": "call",
+      "confidence": "EXTRACTED",
+      "source_file": "assets\\js\\food-lab.js",
+      "source_location": "L359",
+      "weight": 1.0,
+      "source": "js_food_lab_addtocart",
+      "target": "js_food_lab_showtoast",
+      "confidence_score": 1.0
+    }
+  ],
+  "hyperedges": []
+}

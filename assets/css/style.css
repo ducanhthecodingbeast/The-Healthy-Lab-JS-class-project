@@ -292,7 +292,7 @@ body.active {
 }
 
 .btn-hover:is(:hover, :focus)::after {
-  --scale: 500;
+  --scale: 1500;
 }
 
 .section {
@@ -633,52 +633,6 @@ body.active {
 
 
 
-
-/*-----------------------------------*\
-  #HERO
-\*-----------------------------------*/
-
-.hero-banner {
-  display: none;
-}
-
-.hero {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  padding-block: 145px 60px;
-  text-align: center;
-}
-
-.hero-subtitle {
-  color: var(--dark-orange);
-  font-family: var(--ff-shadows-into-light);
-  font-size: var(--fs-3);
-  letter-spacing: 1px;
-  margin-block-end: 25px;
-}
-
-.hero-title {
-  color: var(--champagne-pink);
-  max-width: 12ch;
-  margin-inline: auto;
-}
-
-.hero-text {
-  color: var(--desert-sand);
-  margin-block: 15px 30px;
-  max-width: 44ch;
-  margin-inline: auto;
-}
-
-.hero .btn {
-  margin-inline: auto;
-}
-
-.hero .btn:is(:hover, :focus) {
-  background-color: var(--white);
-  color: var(--black);
-}
 
 
 
@@ -1593,15 +1547,6 @@ textarea.input-field {
 
 
 
-  /**
-   * HERO
-   */
-
-  .hero-title {
-    --fs-1: 4.2rem;
-  }
-
-
 
   /**
    * FOOTER
@@ -1629,41 +1574,6 @@ textarea.input-field {
     max-width: 720px;
   }
 
-
-
-  /**
-   * HERO
-   */
-
-  .hero {
-    position: relative;
-    text-align: left;
-    overflow: hidden;
-    z-index: 1;
-  }
-
-  .hero-content> :is(*, .btn) {
-    margin-inline: 0;
-  }
-
-  .hero-banner {
-    display: block;
-    position: absolute;
-    top: calc(50% + 86px);
-    transform: translateY(-50%);
-    right: 50px;
-    max-width: 40%;
-    aspect-ratio: 1 / 0.9;
-  }
-
-  .hero-img {
-    position: absolute;
-    bottom: 0;
-  }
-
-  .hero::after {
-    display: none;
-  }
 
 
 
@@ -1876,41 +1786,6 @@ textarea.input-field {
 
 
 
-  /**
-   * HERO
-   */
-
-  .hero {
-    min-height: 660px;
-    display: grid;
-    align-items: center;
-  }
-
-  .hero-subtitle {
-    --fs-3: 3.2rem;
-  }
-
-  .hero-title {
-    --fs-1: 7rem;
-    letter-spacing: -2.5px;
-  }
-
-  .hero-text {
-    font-size: var(--fs-3);
-  }
-
-  .hero-banner {
-    max-width: 45%;
-    top: auto;
-    bottom: 0;
-    transform: translateY(0);
-  }
-
-  .hero-img-bg {
-    transform: scale(1.4) translate(20px, -20px);
-  }
-
-
 
   /**
    * FOOD MENU
@@ -2027,15 +1902,6 @@ textarea.input-field {
 
 
 
-  /**
-   * HERO
-   */
-
-  .hero {
-    min-height: 770px;
-  }
-
-
 
   /**
    * PROMO
@@ -2118,11 +1984,6 @@ textarea.input-field {
 .lab-points ion-icon {
   font-size: 1.3rem;
   vertical-align: middle;
-}
-
-/* Hero image override â€” use our AI bowl */
-.hero {
-  /* removed bg */
 }
 
 /* Section subtitle color */

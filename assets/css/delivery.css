@@ -95,10 +95,6 @@
     margin-inline: 0;
   }
 
-  .cta-img { transform: scale(1); }
-}
-
-@media (min-width: 768px) {
   /**
    * DELIVERY
    */
@@ -114,8 +110,6 @@
   /**
    * CTA
    */
-  .cta-img { transform: scale(1); }
-
   .cta-banner .abs-img {
     left: -50px;
   }

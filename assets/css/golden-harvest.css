@@ -272,7 +272,7 @@ body.active {
 }
 
 .btn-hover:is(:hover, :focus)::after {
-  --scale: 500;
+  --scale: 1500;
 }
 
 .section {
