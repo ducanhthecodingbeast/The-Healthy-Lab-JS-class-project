@@ -21,3 +21,32 @@ git clone https://github.com/ducanhthecodingbeast/The-Heallthy-Lab.git
 
 To view the live demo online, this project uses GitHub Pages. 
 If the link above doesn't work yet, make sure GitHub Pages is enabled in your repository settings!
+
+### Run With Docker
+
+From the project folder, run:
+
+```bash
+docker compose up --build
+```
+
+Then open:
+
+```text
+http://localhost:5500
+```
+
+You can also build and run without Compose:
+
+```bash
+docker build -t the-healthy-lab .
+docker run --rm -p 5500:5500 the-healthy-lab
+```
+
+### VS Code Live Server
+
+The Live Server port is set to `5500` in `.vscode/settings.json`, so **Go Live** also opens the site at:
+
+```text
+http://localhost:5500
+```

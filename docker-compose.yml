@@ -1,0 +1,6 @@
+services:
+  healthy-lab:
+    build: .
+    ports:
+      - "5500:5500"
+    restart: unless-stopped
