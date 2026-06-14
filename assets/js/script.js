@@ -109,11 +109,11 @@ filterBtns.forEach(btn => {
 const promoCards = document.querySelectorAll('.promo-card');
 promoCards.forEach(card => {
   card.style.cursor = 'pointer'; // Make it look clickable
-  card.addEventListener('click', function() {
+  card.addEventListener('click', function () {
     // Get the title to match the category
     const title = this.querySelector('.card-title').textContent.toLowerCase();
     let category = 'all';
-    
+
     if (title.includes('juices')) category = 'juices';
     else if (title.includes('smoothies')) category = 'smoothies';
     else if (title.includes('wraps')) category = 'wraps';
@@ -125,7 +125,7 @@ promoCards.forEach(card => {
     if (targetBtn) {
       targetBtn.click();
     }
-    
+
     // Scroll to the menu section
     const menuSection = document.getElementById('food-menu');
     if (menuSection) {
@@ -137,24 +137,72 @@ promoCards.forEach(card => {
 /**
  * Menu "Order Now" buttons — add item to shared cart
  */
-document.querySelectorAll('.food-menu-card').forEach(card => {
-  const btn = card.querySelector('.food-menu-btn');
-  if (!btn) return;
+function attachOrderListeners() {
+  document.querySelectorAll('.food-menu-card').forEach(card => {
+    const btn = card.querySelector('.food-menu-btn');
+    if (!btn) return;
 
-  btn.addEventListener('click', function(e) {
-    e.preventDefault();
-    e.stopPropagation();
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
 
-    const name = card.querySelector('.card-title')?.textContent || 'Menu Item';
-    const category = card.querySelector('.category')?.textContent || '';
-    const priceEl = card.querySelector('.price');
-    const price = priceEl ? parseFloat(priceEl.getAttribute('value')) || 0 : 0;
+      const productId = btn.dataset.id;
+      const name = card.querySelector('.card-title')?.textContent || 'Menu Item';
+      const category = card.querySelector('.category')?.textContent || '';
+      const priceEl = card.querySelector('.price');
+      const price = priceEl ? parseFloat(priceEl.getAttribute('value')) || 0 : 0;
 
-    if (typeof Cart !== 'undefined') {
-      Cart.add({ name, category, price, details: category });
-    }
+      if (typeof Cart !== 'undefined') {
+        Cart.add({ product_id: productId, name, category, price, details: category });
+      }
+    });
   });
-});
+}
+
+async function loadProducts() {
+  if (typeof getProducts !== 'function') {
+    attachOrderListeners();
+    return;
+  }
+  
+  try {
+    const products = await getProducts();
+    const menuList = document.querySelector('.food-menu-list');
+    if (!menuList) return;
+    
+    menuList.innerHTML = '';
+    products.forEach(p => {
+       const html = `
+        <li data-category="${p.category.toLowerCase()}">
+          <div class="food-menu-card">
+            <div class="card-banner">
+              <img src="${p.image_url || './assets/images/food-menu-1.png'}" width="300" height="300" loading="lazy" alt="${p.name}" class="w-100">
+              <button class="btn food-menu-btn" data-id="${p.id}">Order Now</button>
+            </div>
+            <div class="wrapper">
+              <p class="category">${p.category}</p>
+            </div>
+            <h3 class="h3 card-title">${p.name}</h3>
+            <p style="font-size: 1.4rem; color: #666; margin-bottom: 10px;">${p.description || ''}</p>
+            <p style="font-size: 1.2rem; color: #999; margin-bottom: 10px;">${p.calories || 0} kcal</p>
+            <div class="price-wrapper">
+              <p class="price-text">Price:</p>
+              <data class="price" value="${p.price}">$${parseFloat(p.price).toFixed(2)}</data>
+            </div>
+          </div>
+        </li>
+       `;
+       menuList.insertAdjacentHTML('beforeend', html);
+    });
+
+    attachOrderListeners();
+  } catch(err) {
+    console.error('Failed to load products', err);
+    attachOrderListeners();
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadProducts);
 
 /**
  * Cart modal toggle (show/hide with display:flex)

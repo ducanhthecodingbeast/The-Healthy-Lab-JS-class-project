@@ -71,10 +71,89 @@ const Cart = (() => {
     }
   }
 
+  /* ─── Checkout flow ─── */
+  function checkout() {
+    if (items.length === 0) {
+      showToast('Your cart is empty!');
+      return;
+    }
+
+    if (typeof requireLogin === 'function' && !requireLogin()) {
+      return; // Will redirect to login
+    }
+
+    const user = typeof getCurrentUser === 'function' ? getCurrentUser() : {};
+
+    // Render form inside the cart modal
+    const container = document.getElementById('cart-items');
+    container.innerHTML = `
+      <h3 style="margin-bottom: 15px; font-size: 1.8rem;">Checkout Details</h3>
+      <form id="checkout-form" style="display: flex; flex-direction: column; gap: 10px;">
+        <input type="text" id="co-name" placeholder="Full Name" required value="${user.name || ''}" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1.4rem;">
+        <input type="text" id="co-phone" placeholder="Phone Number" required value="${user.phone || ''}" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1.4rem;">
+        <input type="text" id="co-address" placeholder="Delivery Address" required value="${user.address || ''}" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1.4rem;">
+        <textarea id="co-note" placeholder="Order Note (e.g., Deliver after 6PM)" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1.4rem; resize: vertical;"></textarea>
+        <button type="submit" class="btn btn-hover" style="background-color:var(--cinnabar); color:white; padding:12px; font-size:1.6rem; border:none; border-radius:4px; margin-top: 10px; cursor:pointer;">Confirm Order</button>
+      </form>
+    `;
+
+    // Hide normal footer
+    const footerEl = document.querySelector('.modal-footer');
+    if (footerEl) footerEl.style.display = 'none';
+
+    document.getElementById('checkout-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const name = document.getElementById('co-name').value;
+      const phone = document.getElementById('co-phone').value;
+      const address = document.getElementById('co-address').value;
+      const note = document.getElementById('co-note').value;
+      
+      const orderItems = items.map(i => {
+        if (i.product_id) {
+          return {
+            product_id: parseInt(i.product_id),
+            quantity: 1,
+            custom_details: i.details || ''
+          };
+        } else {
+          return {
+            product_name: i.name,
+            quantity: 1,
+            unit_price: parseFloat(i.price),
+            total_price: parseFloat(i.price),
+            custom_details: i.details || ''
+          };
+        }
+      });
+
+      try {
+        if (typeof createOrder === 'function') {
+          await createOrder({
+            customer_name: name,
+            customer_phone: phone,
+            delivery_address: address,
+            note: note,
+            items: orderItems
+          });
+          showToast('Order placed successfully!');
+          clear();
+          window.location.href = 'order-history.html';
+        } else {
+          showToast('createOrder API missing');
+        }
+      } catch (err) {
+        showToast(err.message || 'Checkout failed');
+      }
+    });
+  }
+
   /* ─── Cart Drawer / Modal ─── */
   function renderDrawer() {
     const container = document.getElementById('cart-items');
     const totalEl = document.getElementById('cart-total-price');
+    const footerEl = document.querySelector('.modal-footer');
+    if (footerEl) footerEl.style.display = 'block'; // Show footer normally
     if (!container) return;
 
     container.innerHTML = '';
@@ -108,29 +187,6 @@ const Cart = (() => {
 
     if (totalEl) {
       totalEl.textContent = '$' + getTotal().toFixed(2);
-    }
-  }
-
-  /* ─── Checkout flow ─── */
-  function checkout() {
-    if (items.length === 0) {
-      showToast('Your cart is empty!');
-      return;
-    }
-
-    const total = getTotal();
-    const count = items.length;
-
-    // Show a simple confirmation
-    const confirmed = confirm(`Proceed to checkout?\n\n${count} item(s) — Total: $${total.toFixed(2)}\n\nThis is a demo — no real payment will be processed.`);
-
-    if (confirmed) {
-      showToast('Order placed successfully! Thank you!');
-      clear();
-
-      // Close the modal/drawer
-      const modal = document.getElementById('cart-modal');
-      if (modal) modal.classList.remove('active');
     }
   }
 

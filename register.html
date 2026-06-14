@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register | The Healthy Lab</title>
+  <link rel="shortcut icon" href="./assets/images/50Tag.png" type="image/png">
+  <link rel="stylesheet" href="./assets/css/golden-harvest.css">
+  <link rel="stylesheet" href="./assets/css/nav.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/footer.css">
+  <style>
+    .auth-container {
+      max-width: 400px;
+      margin: 150px auto 100px;
+      padding: 30px;
+      background: var(--white);
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    .auth-title {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-align: center;
+      color: var(--eerie-black-1);
+    }
+    .auth-form input {
+      width: 100%;
+      padding: 10px 15px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 1.6rem;
+    }
+    .auth-form button {
+      width: 100%;
+      padding: 10px;
+      background-color: var(--deep-saffron);
+      color: white;
+      font-size: 1.8rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .auth-form button:hover {
+      background-color: var(--cinnabar);
+    }
+    .auth-link-text {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 1.4rem;
+    }
+    .error-msg {
+      color: red;
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header class="header active" data-header style="background-color: var(--cinnabar); padding-block: 15px;">
+    <div class="container">
+      <div class="h1">
+        <a href="index.html" class="logo" style="color: white; font-weight: 700; font-size: 2.5rem; letter-spacing: -1px; text-decoration: none;">The Healthy Lab</a>
+      </div>
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+          <li class="nav-item"><a href="index.html" class="navbar-link">Home</a></li>
+        </ul>
+      </nav>
+      <div class="header-btn-group">
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="auth-container">
+      <h2 class="auth-title">Register</h2>
+      <div id="error-message" class="error-msg"></div>
+      <form class="auth-form" id="register-form">
+        <input type="text" id="name" placeholder="Full Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required minlength="6">
+        <input type="text" id="phone" placeholder="Phone Number">
+        <input type="text" id="address" placeholder="Delivery Address">
+        <button type="submit">Register</button>
+      </form>
+      <p class="auth-link-text">Already have an account? <a href="login.html" style="color:var(--deep-saffron);">Login</a></p>
+    </section>
+  </main>
+
+  <script src="./assets/js/api.js"></script>
+  <script src="./assets/js/auth.js"></script>
+  <script>
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+      const phone = document.getElementById('phone').value;
+      const address = document.getElementById('address').value;
+      const errorMsg = document.getElementById('error-message');
+      errorMsg.textContent = '';
+      
+      try {
+        await register({ name, email, password, phone, address });
+        
+        // Auto login
+        const data = await login(email, password);
+        saveAuth(data);
+        window.location.href = 'index.html';
+      } catch (err) {
+        errorMsg.textContent = err.message || 'Registration failed';
+      }
+    });
+  </script>
+</body>
+</html>
