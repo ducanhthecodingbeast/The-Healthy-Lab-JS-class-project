@@ -77,9 +77,9 @@ function renderHeaderAuthState() {
     navbarList.insertAdjacentHTML("beforeend", dashHtml);
 
     const userBtnHtml = `
-      <div class="auth-link" style="display:flex; align-items:center; gap: 15px; margin-right: 15px;">
-        <span style="font-weight:600; color:white; background:var(--deep-saffron); padding: 5px 12px; border-radius:20px;">${user.name}</span>
-        <button onclick="logout()" class="btn btn-hover" style="padding: 6px 14px; font-size: 1.4rem;">Logout</button>
+      <div class="auth-link" style="display:flex; align-items:center; gap: 16px;">
+        <span style="font-family:var(--ff-rubik, 'Inter', sans-serif); font-weight:500; font-size:1.4rem; text-transform:uppercase; letter-spacing:1px; color:inherit; white-space:nowrap;">${user.name}</span>
+        <button onclick="logout()" class="header-btn-outline">Logout</button>
       </div>
     `;
     btnGroup.insertAdjacentHTML("afterbegin", userBtnHtml);

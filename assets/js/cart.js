@@ -225,15 +225,15 @@ const Cart = (() => {
     if (cartBtn && cartModal) {
       cartBtn.addEventListener('click', () => {
         renderDrawer();
-        cartModal.classList.add('active');
+        cartModal.classList.add('open');
       });
     }
     if (closeCartBtn && cartModal) {
-      closeCartBtn.addEventListener('click', () => cartModal.classList.remove('active'));
+      closeCartBtn.addEventListener('click', () => cartModal.classList.remove('open'));
     }
     if (cartModal) {
       cartModal.addEventListener('click', (e) => {
-        if (e.target === cartModal) cartModal.classList.remove('active');
+        if (e.target === cartModal) cartModal.classList.remove('open');
       });
     }
 

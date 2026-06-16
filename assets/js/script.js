@@ -209,23 +209,23 @@ document.addEventListener('DOMContentLoaded', loadProducts);
  */
 const cartModal = document.getElementById('cart-modal');
 if (cartModal) {
-  // Override click handlers to use display instead of class
+  // Use CSS class to trigger sidebar animation
   const cartBtn = document.getElementById('cart-btn');
   const closeCart = document.getElementById('close-cart');
 
   if (cartBtn) {
     cartBtn.addEventListener('click', () => {
-      cartModal.style.display = 'flex';
+      cartModal.classList.add('open');
       if (typeof Cart !== 'undefined') Cart.renderDrawer();
     });
   }
   if (closeCart) {
     closeCart.addEventListener('click', () => {
-      cartModal.style.display = 'none';
+      cartModal.classList.remove('open');
     });
   }
   cartModal.addEventListener('click', (e) => {
-    if (e.target === cartModal) cartModal.style.display = 'none';
+    if (e.target === cartModal) cartModal.classList.remove('open');
   });
 }
 

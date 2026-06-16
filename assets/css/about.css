@@ -96,137 +96,106 @@
 }
 
 /*-----------------------------------*\
-  #ABOUT
+  #ABOUT (Redesign)
 \*-----------------------------------*/
-.about {
-  background-color: var(--isabelline, hsl(38, 44%, 96%));
-  padding-block: 60px;
+.about-redesign {
+  padding: 120px 0;
+  width: 100%;
 }
 
-.about__inner {
+.about-redesign__inner {
   display: flex;
   flex-direction: column;
-  gap: 60px;
-  align-items: center;
+  width: 100%;
 }
 
 @media (min-width: 992px) {
-  .about__inner {
+  .about-redesign__inner {
     flex-direction: row;
-    gap: 120px;
-  }
-
-  .about__gallery {
     height: 600px;
-  }
-
-  .about__content {
-    padding-left: 20px;
+    gap: 120px;
   }
 }
 
-.about__inner>* {
+.about-redesign__left {
+  flex: 1.25;
+  width: 100%;
+}
+
+.about-redesign__right {
   flex: 1;
   width: 100%;
 }
 
-.about__gallery {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(12, 1fr);
-  height: 400px;
+/* Left side styling */
+.about-redesign__left {
+  background-color: #f7f6ec; /* Pale yellowish/cream background */
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-redesign__content-box {
+  border: 4px dashed #8cb54a; /* Green dashed border */
+  border-radius: 4px;
+  padding: 60px 40px;
+  text-align: center;
+  max-width: 600px;
+  position: relative;
   width: 100%;
-  transform: translateX(120px) scale(1.0);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-
-
-.about__gallery-item {
-  overflow: hidden;
-  background: var(--gainsboro, #dfdfdf);
-  border-radius: none;
+.about-redesign__title {
+  color: #1a4a22; /* Dark green */
+  font-family: 'Roboto', sans-serif;
+  font-size: 2.8rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  line-height: 1.4;
+  margin-bottom: 30px;
+  text-transform: uppercase;
 }
 
-.about__gallery-item.item-1 {
-  grid-column: 1 / 9;
-  grid-row: 1 / 9;
-  z-index: 1;
-  background-color: var(--cinnabar);
-  background-image: url('../images/hero-bg.jpg');
-  /* fallback texture if wanted */
-  background-blend-mode: multiply;
-  background-size: cover;
+.about-redesign__text {
+  color: #333;
+  font-size: 1.4rem;
+  line-height: 1.8;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  max-width: 480px;
 }
 
-.about__gallery-item.item-2 {
-  grid-column: 5 / 13;
-  grid-row: 5 / 13;
-  z-index: 2;
-  border: 4px solid var(--isabelline);
+.about-redesign__icon {
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
 }
 
-.about__gallery-item img {
+/* Right side image styling */
+.about-redesign__right {
+  height: 400px; /* For mobile */
+}
+
+@media (min-width: 992px) {
+  .about-redesign__right {
+    height: 100%;
+  }
+}
+
+.about-redesign__img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
-}
-
-.about__gallery-item:hover img {
-  transform: scale(1.05);
-}
-
-.about__content {
-  padding-left: 0;
-}
-
-
-
-
-
-.about__stats {
-  display: flex;
-  justify-content: center;
-  gap: 40px;
-  flex-wrap: wrap;
-  margin-top: 30px;
-}
-
-.stat-item {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 10px;
-}
-
-.stat-bg-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 80px;
-  color: var(--sonic-silver);
-  opacity: 0.08;
-  z-index: 0;
-}
-
-.stat-number {
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--cinnabar);
-  font-family: var(--ff-rubik);
-  z-index: 1;
-  line-height: 1;
-  margin-bottom: 5px;
-}
-
-.stat-label {
-  font-size: 1.5rem;
-  color: var(--eerie-black-1);
-  font-weight: 600;
-  z-index: 1;
+  display: block;
+  border: 24px solid white; /* Adds the white frame */
+  box-sizing: border-box;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05); /* Optional subtle shadow to make the frame stand out */
 }
 
 @media (min-width: 1200px) {
@@ -235,12 +204,5 @@
    */
   .promo .promo-item {
     min-width: calc(25% - 7.5px);
-  }
-
-  /**
-   * ABOUT
-   */
-  .about .container {
-    gap: 60px;
   }
 }

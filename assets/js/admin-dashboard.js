@@ -143,15 +143,62 @@ document.addEventListener('DOMContentLoaded', () => {
       users.forEach(u => {
         const tr = document.createElement('tr');
         tr.innerHTML = `
+          <td style="text-align:center;"><input type="checkbox"></td>
           <td>${u.id}</td>
           <td>${u.name}</td>
           <td>${u.email}</td>
-          <td><span style="background:#eee; padding:3px 8px; border-radius:4px;">${u.role}</span></td>
+          <td>********</td>
+          <td>0</td>
+          <td style="text-align:right;">
+            <ion-icon name="pencil" style="cursor:pointer; margin-right:10px; color:var(--text-gray); font-size:14px;"></ion-icon>
+            <ion-icon name="trash" style="cursor:pointer; color:var(--text-gray); font-size:14px;"></ion-icon>
+          </td>
         `;
         tbody.appendChild(tr);
       });
+      document.getElementById('users-count-text').innerText = \`\${users.length} entry found\`;
     } catch (err) {
       console.error('Failed to load users', err);
     }
   }
+
 });
+
+// --- UI Switching and Dropdowns ---
+window.toggleDropdown = function(e) {
+  if(e) e.stopPropagation();
+  const dropdown = document.getElementById('profile-dropdown');
+  if (dropdown) {
+    dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+  }
+};
+
+document.addEventListener('click', function(e) {
+  const dropdown = document.getElementById('profile-dropdown');
+  const container = document.querySelector('.profile-dropdown-container');
+  if(dropdown && container && !container.contains(e.target)) {
+    dropdown.style.display = 'none';
+  }
+});
+
+window.switchView = function(viewId, el, e) {
+  if(e) e.stopPropagation();
+  document.querySelectorAll('.view-section').forEach(section => {
+    section.style.display = 'none';
+  });
+  const targetView = document.getElementById(viewId);
+  if (targetView) targetView.style.display = 'block';
+  
+  const dropdown = document.getElementById('profile-dropdown');
+  if (dropdown) dropdown.style.display = 'none';
+  
+  if(el) {
+    document.querySelectorAll('.strapi-sidebar-menu a').forEach(a => a.classList.remove('active'));
+    el.classList.add('active');
+  } else if (viewId === 'users-view') {
+    document.querySelectorAll('.strapi-sidebar-menu a').forEach(a => a.classList.remove('active'));
+    // Find the Customers link and make it active (assuming it's the 4th link)
+    const customerLink = document.querySelectorAll('.strapi-sidebar-menu a')[3];
+    if (customerLink) customerLink.classList.add('active');
+  }
+};

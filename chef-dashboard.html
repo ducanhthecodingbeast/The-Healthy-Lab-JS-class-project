@@ -3,26 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chef Dashboard | The Healthy Lab</title>
+  <title>Chef Dashboard | FoodFlow</title>
   <link rel="shortcut icon" href="./assets/images/50Tag.png" type="image/png">
-  <link rel="stylesheet" href="./assets/css/golden-harvest.css">
-  <link rel="stylesheet" href="./assets/css/nav.css">
-  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/admin-strapi.css?v=3">
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   <style>
-    .dashboard-container {
-      max-width: 1000px;
-      margin: 150px auto 100px;
-      padding: 30px;
-      background: var(--white);
-      border-radius: 8px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    }
     .order-card {
-      border: 1px solid #eee;
-      border-left: 5px solid #f39c12;
-      border-radius: 8px;
-      padding: 15px;
-      margin-bottom: 15px;
+      background: var(--card-bg);
+      border-radius: 3px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--primary-color);
     }
     .order-card.preparing {
       border-left-color: #3498db;
@@ -31,59 +25,120 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 10px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 10px;
+      margin-bottom: 15px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 15px;
     }
-    .status-badge {
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 1.2rem;
-      font-weight: bold;
-      color: white;
-      text-transform: uppercase;
+    .order-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin: 0;
     }
-    .status-pending { background: #f39c12; }
-    .status-preparing { background: #3498db; }
-    
-    .action-btn {
-      background: var(--deep-saffron);
-      color: white;
-      border: none;
-      padding: 8px 15px;
-      border-radius: 4px;
-      cursor: pointer;
-      font-weight: bold;
+    .order-time {
+      font-size: 13px;
+      color: var(--text-gray);
     }
-    .action-btn.ready {
-      background: #9b59b6;
+    .order-items {
+      font-size: 14px;
+      color: var(--text-dark);
+      line-height: 1.6;
+      margin-bottom: 20px;
+      padding-left: 20px;
+    }
+    .order-items li {
+      margin-bottom: 5px;
     }
   </style>
 </head>
 <body>
-  <header class="header active" data-header style="background-color: var(--cinnabar); padding-block: 15px;">
-    <div class="container">
-      <div class="h1">
-        <a href="index.html" class="logo" style="color: white; font-weight: 700; font-size: 2.5rem; letter-spacing: -1px; text-decoration: none;">The Healthy Lab</a>
+  
+  <div class="strapi-layout">
+    <aside class="strapi-sidebar">
+      <a href="index.html" class="strapi-logo-area">
+        <ion-icon name="nutrition"></ion-icon> FoodFlow
+      </a>
+      
+      <div class="strapi-sidebar-menu">
+        <div class="menu-category">KITCHEN</div>
+        <a href="#" class="active"><ion-icon name="list-outline"></ion-icon> Kitchen Orders</a>
+        <a href="#"><ion-icon name="time-outline"></ion-icon> Prep History</a>
+        
+        <div class="menu-category">GENERAL</div>
+        <a href="#" onclick="logout()"><ion-icon name="log-out-outline"></ion-icon> Logout</a>
       </div>
-      <nav class="navbar" data-navbar>
-        <ul class="navbar-list">
-          <li class="nav-item"><a href="index.html" class="navbar-link">Home</a></li>
-        </ul>
-      </nav>
-      <div class="header-btn-group"></div>
-    </div>
-  </header>
+    </aside>
 
-  <main>
-    <section class="dashboard-container">
-      <h2 style="font-size: 2.5rem; margin-bottom: 20px; color: var(--eerie-black-1);">Chef Dashboard (Kitchen)</h2>
-      <div id="orders-container">Loading orders...</div>
-    </section>
-  </main>
+    <div class="strapi-main">
+      <header class="strapi-topbar">
+        <div class="strapi-topbar-right">
+          <div class="profile-dropdown-container" style="position:relative; display:flex; align-items:center; cursor:pointer;" onclick="toggleDropdown(event)">
+            <span style="font-weight:600; margin-right:10px;">Chef User</span>
+            <ion-icon name="caret-down-outline" style="font-size:12px; margin-right:10px;"></ion-icon>
+            <div class="avatar" style="background:#2ecc71; color:#fff; border-radius:3px;">CH</div>
+            
+            <div id="profile-dropdown" class="profile-dropdown" style="display:none; position:absolute; top:40px; right:0; background:#fff; box-shadow:0 2px 8px rgba(0,0,0,0.1); border-radius:3px; width:200px; z-index:100; padding:10px 0; border: 1px solid var(--border-color);">
+              <a href="#" style="display:flex; justify-content:space-between; align-items:center; padding:10px 20px; color:var(--text-dark); text-decoration:none; font-size:13px;">
+                Profile
+              </a>
+              <div style="height:1px; background:#E3E9F3; margin:10px 0;"></div>
+              <a href="#" onclick="logout()" style="display:flex; justify-content:space-between; align-items:center; padding:10px 20px; color:var(--text-dark); text-decoration:none; font-size:13px;">
+                Logout <ion-icon name="log-out-outline" style="font-size:16px;"></ion-icon>
+              </a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="strapi-content">
+        <div class="strapi-page-header">
+          <div>
+            <h1>Kitchen Display System (KDS)</h1>
+            <p style="color:var(--text-gray); font-size:13px; margin-top:5px;">Manage active kitchen orders</p>
+          </div>
+        </div>
+
+        <div class="strapi-dashboard-grid">
+          <div class="strapi-main-column" style="flex:3;">
+            <div id="orders-container">
+              <p style="font-size:14px; color:var(--text-gray);">Loading orders...</p>
+            </div>
+          </div>
+
+          <div class="strapi-side-column" style="flex:1;">
+            <div class="strapi-card" style="padding: 20px; background:#fafafb;">
+              <h3 style="margin:0 0 15px 0; font-size:12px; color:var(--text-gray); text-transform:uppercase; letter-spacing:0.5px;">KITCHEN STATS</h3>
+              <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                <span style="font-size:13px; color:var(--text-dark);">Active Orders</span>
+                <span style="font-size:13px; font-weight:700; color:var(--primary-color);">0</span>
+              </div>
+              <div style="display:flex; justify-content:space-between;">
+                <span style="font-size:13px; color:var(--text-dark);">Completed Today</span>
+                <span style="font-size:13px; font-weight:700; color:#2ecc71;">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
 
   <script src="./assets/js/api.js"></script>
-  <script src="./assets/js/auth.js"></script>
+  <script src="./assets/js/auth.js?v=5"></script>
   <script src="./assets/js/chef-dashboard.js"></script>
+  <script>
+    window.toggleDropdown = function(e) {
+      if(e) e.stopPropagation();
+      const dropdown = document.getElementById('profile-dropdown');
+      dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
+    };
+    document.addEventListener('click', function(e) {
+      const dropdown = document.getElementById('profile-dropdown');
+      const container = document.querySelector('.profile-dropdown-container');
+      if(dropdown && container && !container.contains(e.target)) {
+        dropdown.style.display = 'none';
+      }
+    });
+  </script>
 </body>
 </html>
