@@ -2,6 +2,7 @@ from pathlib import Path
 import os
 
 from sqlalchemy import create_engine
+from sqlalchemy import inspect, text
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 
@@ -16,6 +17,13 @@ Base = declarative_base()
 
 def create_db_and_tables():
     Base.metadata.create_all(bind=engine)
+    if DATABASE_URL.startswith("sqlite"):
+        with engine.begin() as connection:
+            inspector = inspect(connection)
+            if "order_items" in inspector.get_table_names():
+                columns = {column["name"] for column in inspector.get_columns("order_items")}
+                if "product_id" not in columns:
+                    connection.execute(text("ALTER TABLE order_items ADD COLUMN product_id INTEGER"))
 
 
 def get_session():

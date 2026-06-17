@@ -181,10 +181,12 @@ async function loadProducts() {
             </div>
             <div class="wrapper">
               <p class="category">${p.category}</p>
+              <div class="rating-wrapper">
+                <ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon><ion-icon name="star"></ion-icon>
+              </div>
             </div>
             <h3 class="h3 card-title">${p.name}</h3>
-            <p style="font-size: 1.4rem; color: #666; margin-bottom: 10px;">${p.description || ''}</p>
-            <p style="font-size: 1.2rem; color: #999; margin-bottom: 10px;">${p.calories || 0} kcal</p>
+            <p class="card-text food-description">${p.description || ''}</p>
             <div class="price-wrapper">
               <p class="price-text">Price:</p>
               <data class="price" value="${p.price}">$${parseFloat(p.price).toFixed(2)}</data>
@@ -228,4 +230,54 @@ if (cartModal) {
     if (e.target === cartModal) cartModal.classList.remove('open');
   });
 }
+
+/**
+ * Hero text letter animation (Continuous Loop)
+ */
+document.addEventListener("DOMContentLoaded", () => {
+  const heroTitle = document.querySelector(".hero-v2__title");
+  if (!heroTitle) return;
+
+  // Disable the parent fadeUp animation so it doesn't conflict with letters
+  heroTitle.style.animation = "none";
+  heroTitle.style.opacity = "1";
+
+  const textLines = [
+    { plain: "Real ", em: "Food" },
+    { plain: "Real ", em: "Energy" },
+    { plain: "Real ", em: "You" }
+  ];
+
+  function playAnimation() {
+    let newHtml = "";
+    let delay = 0.2; // Start after a short delay
+
+    textLines.forEach(line => {
+      // Plain text part
+      for (let char of line.plain) {
+        if (char === " ") {
+          newHtml += " ";
+        } else {
+          newHtml += `<span class="letter-anim" style="animation-delay: ${delay}s">${char}</span>`;
+          delay += 0.05;
+        }
+      }
+      
+      // Emphasized part
+      newHtml += "<em>";
+      for (let char of line.em) {
+        newHtml += `<span class="letter-anim" style="animation-delay: ${delay}s">${char}</span>`;
+        delay += 0.05;
+      }
+      newHtml += "</em><br>";
+      delay += 0.2; // Pause before the next line
+    });
+    
+    heroTitle.innerHTML = newHtml;
+  }
+
+  // Play immediately, then loop every 5 seconds
+  playAnimation();
+  setInterval(playAnimation, 5000);
+});
 

@@ -429,13 +429,19 @@ body.active {
   z-index: 4;
 }
 
-.header.active {
-  --color: var(--deep-saffron);
+.header.header-dark {
+  --color: var(--rich-black-fogra-29);
   --btn-color: var(--rich-black-fogra-29);
+  border-block-end-color: rgba(0, 0, 0, 0.1);
+}
+
+.header.active {
+  --color: var(--white);
+  --btn-color: var(--white);
 
   position: fixed;
   top: -86px;
-  background-color: var(--white);
+  background-color: var(--rich-black-fogra-29);
   box-shadow: var(--shadow-1);
   animation: slideIn 0.5s ease-out forwards;
 }

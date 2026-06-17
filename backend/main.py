@@ -33,6 +33,18 @@ app.add_middleware(
 )
 
 
+def build_login_response(user: User) -> LoginResponse:
+    return LoginResponse(
+        token=create_token(user),
+        id=user.id,
+        name=user.name,
+        email=user.email,
+        role=user.role,
+        phone=user.phone,
+        address=user.address,
+    )
+
+
 @app.on_event("startup")
 def on_startup():
     create_db_and_tables()
@@ -52,6 +64,7 @@ def build_order_read(order: Order, session: Session) -> OrderRead:
         items=[
             OrderItemRead(
                 id=item.id,
+                product_id=item.product_id,
                 product_name=item.product_name,
                 quantity=item.quantity,
                 unit_price=item.unit_price,
@@ -86,7 +99,7 @@ def register(data: UserCreate, session: Session = Depends(get_session)):
     session.commit()
     session.refresh(user)
 
-    return LoginResponse(token=create_token(user), id=user.id, name=user.name, email=user.email, role=user.role)
+    return build_login_response(user)
 
 
 @app.post("/auth/login", response_model=LoginResponse)
@@ -95,7 +108,7 @@ def login(data: LoginRequest, session: Session = Depends(get_session)):
     if not user or not verify_password(data.password, user.password_hash):
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid email or password")
 
-    return LoginResponse(token=create_token(user), id=user.id, name=user.name, email=user.email, role=user.role)
+    return build_login_response(user)
 
 
 @app.get("/auth/me", response_model=UserRead)
@@ -171,19 +184,8 @@ def create_order(
     if not delivery_address:
         raise HTTPException(status_code=400, detail="Delivery address is required")
 
-    order = Order(
-        customer_id=current_user.id,
-        customer_name=data.customer_name or current_user.name,
-        customer_phone=data.customer_phone or current_user.phone,
-        delivery_address=delivery_address,
-        status="pending",
-        note=data.note,
-    )
-    session.add(order)
-    session.commit()
-    session.refresh(order)
-
     total_price = 0.0
+    order_items = []
     for item_data in data.items:
         if item_data.product_id:
             product = session.get(Product, item_data.product_id)
@@ -191,27 +193,42 @@ def create_order(
                 raise HTTPException(status_code=404, detail=f"Product {item_data.product_id} not found")
             product_name = product.name
             unit_price = product.price
+            product_id = product.id
         else:
             if not item_data.product_name or item_data.unit_price is None:
                 raise HTTPException(status_code=400, detail="Custom order items need product_name and unit_price")
             product_name = item_data.product_name
             unit_price = item_data.unit_price
+            product_id = None
 
         item_total = round(item_data.total_price if item_data.total_price is not None else unit_price * item_data.quantity, 2)
         total_price += item_total
-        session.add(
-            OrderItem(
-                order_id=order.id,
-                product_name=product_name,
-                quantity=item_data.quantity,
-                unit_price=unit_price,
-                total_price=item_total,
-                custom_details=item_data.custom_details,
-            )
+        order_items.append(
+            {
+                "product_id": product_id,
+                "product_name": product_name,
+                "quantity": item_data.quantity,
+                "unit_price": unit_price,
+                "total_price": item_total,
+                "custom_details": item_data.custom_details,
+            }
         )
 
-    order.total_price = round(total_price, 2)
+    order = Order(
+        customer_id=current_user.id,
+        customer_name=data.customer_name or current_user.name,
+        customer_phone=data.customer_phone or current_user.phone,
+        delivery_address=delivery_address,
+        status="pending",
+        total_price=round(total_price, 2),
+        note=data.note,
+    )
     session.add(order)
+    session.flush()
+
+    for item in order_items:
+        session.add(OrderItem(order_id=order.id, **item))
+
     session.commit()
     session.refresh(order)
     return build_order_read(order, session)
@@ -316,6 +333,10 @@ def admin_summary(
     delivered_orders = session.query(func.count(Order.id)).filter(Order.status == "delivered").scalar()
     total_revenue = session.query(func.coalesce(func.sum(Order.total_price), 0)).filter(Order.status == "delivered").scalar()
     total_customers = session.query(func.count(User.id)).filter(User.role == "customer").scalar()
+    total_products = session.query(func.count(Product.id)).scalar()
+    active_products = session.query(func.count(Product.id)).filter(Product.is_available.is_(True)).scalar()
+    kitchen_orders = session.query(func.count(Order.id)).filter(Order.status.in_(["pending", "preparing"])).scalar()
+    delivery_orders = session.query(func.count(Order.id)).filter(Order.status.in_(["ready", "delivering"])).scalar()
 
     return AdminSummary(
         total_orders=total_orders,
@@ -323,4 +344,8 @@ def admin_summary(
         delivered_orders=delivered_orders,
         total_revenue=round(float(total_revenue), 2),
         total_customers=total_customers,
+        total_products=total_products,
+        active_products=active_products,
+        kitchen_orders=kitchen_orders,
+        delivery_orders=delivery_orders,
     )

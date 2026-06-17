@@ -37,6 +37,8 @@ class LoginResponse(BaseModel):
     name: str
     email: str
     role: Role
+    phone: str | None = None
+    address: str | None = None
 
 
 class ProductCreate(BaseModel):
@@ -91,6 +93,7 @@ class OrderCreate(BaseModel):
 
 class OrderItemRead(BaseModel):
     id: int
+    product_id: int | None = None
     product_name: str
     quantity: int
     unit_price: float
@@ -120,3 +123,7 @@ class AdminSummary(BaseModel):
     delivered_orders: int
     total_revenue: float
     total_customers: int
+    total_products: int
+    active_products: int
+    kitchen_orders: int
+    delivery_orders: int

@@ -4,7 +4,9 @@ function saveAuth(authData) {
     id: authData.id,
     name: authData.name,
     email: authData.email,
-    role: authData.role
+    role: authData.role,
+    phone: authData.phone || '',
+    address: authData.address || ''
   }));
 }
 

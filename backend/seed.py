@@ -127,6 +127,7 @@ def seed():
                 session.add(
                     OrderItem(
                         order_id=order.id,
+                        product_id=product.id,
                         product_name=product.name,
                         quantity=quantity,
                         unit_price=product.price,
