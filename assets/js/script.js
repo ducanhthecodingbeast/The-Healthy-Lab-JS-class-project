@@ -10,15 +10,19 @@ const navbar = document.querySelector("[data-navbar]");
 const navbarLinks = document.querySelectorAll("[data-nav-link]");
 const menuToggleBtn = document.querySelector("[data-menu-toggle-btn]");
 
-menuToggleBtn.addEventListener("click", function () {
-  navbar.classList.toggle("active");
-  this.classList.toggle("active");
-});
+if (menuToggleBtn && navbar) {
+  menuToggleBtn.addEventListener("click", function () {
+    navbar.classList.toggle("active");
+    this.classList.toggle("active");
+  });
+}
 
 for (let i = 0; i < navbarLinks.length; i++) {
   navbarLinks[i].addEventListener("click", function () {
-    navbar.classList.toggle("active");
-    menuToggleBtn.classList.toggle("active");
+    if (navbar && menuToggleBtn) {
+      navbar.classList.toggle("active");
+      menuToggleBtn.classList.toggle("active");
+    }
   });
 }
 
@@ -32,6 +36,7 @@ const header = document.querySelector("[data-header]");
 const backTopBtn = document.querySelector("[data-back-top-btn]");
 
 window.addEventListener("scroll", function () {
+  if (!header || !backTopBtn) return;
   if (window.scrollY >= 100) {
     header.classList.add("active");
     backTopBtn.classList.add("active");
@@ -57,6 +62,7 @@ let deliveryBoyMove = -80;
 let lastScrollPos = 0;
 
 window.addEventListener("scroll", function () {
+  if (!deliveryBoy) return;
 
   let deliveryBoyTopPos = deliveryBoy.getBoundingClientRect().top;
 
@@ -78,7 +84,6 @@ window.addEventListener("scroll", function () {
  */
 
 const filterBtns = document.querySelectorAll('[data-filter]');
-const menuItems = document.querySelectorAll('.food-menu-list > li');
 
 filterBtns.forEach(btn => {
   btn.addEventListener('click', function () {
@@ -88,6 +93,7 @@ filterBtns.forEach(btn => {
     this.classList.add('active');
 
     const filterValue = this.dataset.filter;
+    const menuItems = document.querySelectorAll('.food-menu-list > li');
 
     menuItems.forEach(item => {
       if (filterValue === 'all') {
@@ -280,4 +286,3 @@ document.addEventListener("DOMContentLoaded", () => {
   playAnimation();
   setInterval(playAnimation, 5000);
 });
-

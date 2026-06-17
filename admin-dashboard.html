@@ -25,6 +25,15 @@
         <div class="menu-category">CATALOG</div>
         <a href="#" onclick="switchView('menu-view', this)"><ion-icon name="restaurant-outline"></ion-icon> Menu Items</a>
         <a href="#" onclick="switchView('users-view', this)"><ion-icon name="people-outline"></ion-icon> Customers</a>
+
+        <div class="menu-category">REPORT MODULES</div>
+        <a href="#" onclick="switchView('staff-view', this)"><ion-icon name="id-card-outline"></ion-icon> Staff</a>
+        <a href="#" onclick="switchView('reservations-view', this)"><ion-icon name="calendar-outline"></ion-icon> Reservations</a>
+        <a href="#" onclick="switchView('queue-view', this)"><ion-icon name="hourglass-outline"></ion-icon> Queue</a>
+        <a href="#" onclick="switchView('inventory-view', this)"><ion-icon name="cube-outline"></ion-icon> Inventory</a>
+        <a href="#" onclick="switchView('suppliers-view', this)"><ion-icon name="business-outline"></ion-icon> Suppliers</a>
+        <a href="#" onclick="switchView('notifications-view', this)"><ion-icon name="notifications-outline"></ion-icon> Alerts</a>
+        <a href="#" onclick="switchView('vouchers-view', this)"><ion-icon name="ticket-outline"></ion-icon> Vouchers</a>
         
         <div class="menu-category">GENERAL</div>
         <a href="#" onclick="logout()"><ion-icon name="log-out-outline"></ion-icon> Logout</a>
@@ -35,7 +44,7 @@
       <header class="strapi-topbar">
         <div class="strapi-topbar-right">
           <div class="profile-dropdown-container" style="position:relative; display:flex; align-items:center; cursor:pointer;" onclick="toggleDropdown(event)">
-            <span style="font-weight:600; margin-right:10px;">paulbocuse</span>
+            <span id="admin-profile-name" style="font-weight:600; margin-right:10px;">Admin</span>
             <ion-icon name="caret-down-outline" style="font-size:12px; margin-right:10px;"></ion-icon>
             <div class="avatar" style="background:#007EFF; color:#fff; border-radius:3px;">EN</div>
             
@@ -158,94 +167,121 @@
           </div>
         </div>
 
-        <!-- USERS / ADMINISTRATOR VIEW -->
+        <!-- USERS VIEW -->
         <div id="users-view" class="view-section" style="display:none;">
           <div class="strapi-page-header" style="margin-bottom:15px;">
             <div>
-              <h1 style="margin-bottom:5px;">Administrator</h1>
-              <p style="color:var(--text-gray); font-size:13px; margin:0;" id="users-count-text">0 entry found</p>
+              <h1 style="margin-bottom:5px;">Customers</h1>
+              <p style="color:var(--text-gray); font-size:13px; margin:0;" id="users-count-text">0 entries found</p>
             </div>
-            <button class="strapi-btn-primary">
-              <ion-icon name="add-outline"></ion-icon> Add New Administrator
-            </button>
           </div>
-
-          <div class="strapi-dashboard-grid">
-            <div class="strapi-main-column">
-              <div style="margin-bottom: 20px; font-size:13px; font-weight:600; color:var(--text-dark);">
-                <ion-icon name="filter" style="margin-right:5px;"></ion-icon> Filters
-              </div>
-              <div class="strapi-card" style="padding: 0;">
-                <div style="overflow-x: auto;">
-                  <table class="strapi-users-table">
-                    <thead>
-                      <tr>
-                        <th style="width: 40px; text-align:center;"><input type="checkbox"></th>
-                        <th>Id <ion-icon name="caret-up" style="vertical-align:middle;"></ion-icon></th>
-                        <th>Username</th>
-                        <th>Email</th>
-                        <th>Password</th>
-                        <th>Blocked</th>
-                        <th style="width: 80px;"></th>
-                      </tr>
-                    </thead>
-                    <tbody id="users-table"></tbody>
-                  </table>
-                </div>
-                <div style="display:flex; justify-content:space-between; align-items:center; padding:15px 20px; border-top:1px solid var(--border-color);">
-                  <div style="font-size:13px; color:var(--text-dark);">
-                    <select style="border:none; outline:none; background:transparent; font-weight:600;">
-                      <option>10</option>
-                      <option>20</option>
-                      <option>50</option>
-                    </select> entries per page
-                  </div>
-                  <div style="display:flex; gap:5px;">
-                    <button class="pagination-btn">&lt;</button>
-                    <button class="pagination-btn active">1</button>
-                    <button class="pagination-btn">&gt;</button>
-                  </div>
-                </div>
-              </div>
+          <div class="strapi-card" style="padding: 0;">
+            <div style="overflow-x: auto;">
+              <table class="strapi-users-table">
+                <thead>
+                  <tr>
+                    <th style="width: 40px; text-align:center;"><input type="checkbox"></th>
+                    <th>Id <ion-icon name="caret-up" style="vertical-align:middle;"></ion-icon></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Phone</th>
+                    <th>Profile</th>
+                  </tr>
+                </thead>
+                <tbody id="users-table"></tbody>
+              </table>
             </div>
+          </div>
+        </div>
 
-            <div class="strapi-side-column">
-              <div class="strapi-card" style="padding: 20px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
-                  <h3 style="margin:0; font-size:11px; color:var(--text-gray); text-transform:uppercase; letter-spacing:0.5px;">GET STARTED VIDEOS</h3>
-                  <span style="font-size:11px; font-weight:700; color:#2ecc71;">0% COMPLETED</span>
-                </div>
-                
-                <div style="display:flex; gap:15px; margin-bottom:15px; align-items:center;">
-                  <div style="width:40px; height:40px; background:#007EFF; border-radius:3px; display:flex; align-items:center; justify-content:center; color:#fff;">
-                    <ion-icon name="play" style="font-size:20px;"></ion-icon>
-                  </div>
-                  <div>
-                    <div style="font-size:13px; font-weight:600; color:var(--text-dark);">Create your first content-type</div>
-                    <div style="font-size:11px; color:var(--text-gray);">1:43</div>
-                  </div>
-                </div>
+        <!-- STAFF VIEW -->
+        <div id="staff-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header"><h1>Staff Management</h1></div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>Name</th><th>Role</th><th>Shift</th><th>Status</th></tr></thead>
+                <tbody id="staff-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
 
-                <div style="display:flex; gap:15px; margin-bottom:15px; align-items:center;">
-                  <div style="width:40px; height:40px; background:#007EFF; border-radius:3px; display:flex; align-items:center; justify-content:center; color:#fff;">
-                    <ion-icon name="play" style="font-size:20px;"></ion-icon>
-                  </div>
-                  <div>
-                    <div style="font-size:13px; font-weight:600; color:var(--text-dark);">Fill your content with data</div>
-                    <div style="font-size:11px; color:var(--text-gray);">1:16</div>
-                  </div>
-                </div>
+        <!-- RESERVATIONS VIEW -->
+        <div id="reservations-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header"><h1>Reservations</h1></div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>Customer</th><th>Phone</th><th>Party</th><th>Time</th><th>Status</th></tr></thead>
+                <tbody id="reservations-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
 
-                <div style="display:flex; gap:15px; align-items:center;">
-                  <div style="width:40px; height:40px; background:#007EFF; border-radius:3px; display:flex; align-items:center; justify-content:center; color:#fff;">
-                    <ion-icon name="play" style="font-size:20px;"></ion-icon>
-                  </div>
-                  <div>
-                    <div style="font-size:13px; font-weight:600; color:var(--text-dark);">Fetch data through the API</div>
-                    <div style="font-size:11px; color:var(--text-gray);">0:44</div>
-                  </div>
-                </div>
-              </div>
+        <!-- QUEUE VIEW -->
+        <div id="queue-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header"><h1>Virtual Queue</h1></div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>Customer</th><th>Party</th><th>Status</th><th>Wait min</th></tr></thead>
+                <tbody id="queue-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- INVENTORY VIEW -->
+        <div id="inventory-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header"><h1>Inventory</h1></div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>Ingredient</th><th>Stock</th><th>Unit</th><th>Low Stock At</th><th>Expires</th></tr></thead>
+                <tbody id="inventory-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUPPLIERS VIEW -->
+        <div id="suppliers-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header"><h1>Suppliers</h1></div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>Name</th><th>Contact</th><th>Phone</th><th>Items</th></tr></thead>
+                <tbody id="suppliers-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTIFICATIONS VIEW -->
+        <div id="notifications-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header"><h1>Notifications & Alerts</h1></div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>Title</th><th>Message</th><th>Level</th></tr></thead>
+                <tbody id="notifications-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- VOUCHERS VIEW -->
+        <div id="vouchers-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header"><h1>Membership & Vouchers</h1></div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>Code</th><th>Description</th><th>Status</th></tr></thead>
+                <tbody id="vouchers-table"></tbody>
+              </table>
             </div>
           </div>
         </div>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservations & Queue | The Healthy Lab</title>
+  <link rel="shortcut icon" href="./assets/images/50Tag.png" type="image/png">
+  <link rel="stylesheet" href="./assets/css/golden-harvest.css">
+  <link rel="stylesheet" href="./assets/css/nav.css?v=6">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/reservations.css">
+</head>
+<body>
+  <header class="header active" data-header>
+    <div class="container">
+      <div class="h1">
+        <a href="index.html" class="logo" style="color:white; font-weight:700; font-size:2.5rem; letter-spacing:-1px; text-decoration:none;">The Healthy Lab</a>
+      </div>
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+          <li class="nav-item"><a href="index.html" class="navbar-link">Home</a></li>
+          <li class="nav-item"><a href="order-history.html" class="navbar-link">Orders</a></li>
+        </ul>
+      </nav>
+      <div class="header-btn-group"></div>
+    </div>
+  </header>
+
+  <main class="guest-flow">
+    <section class="guest-panel">
+      <div>
+        <p class="guest-eyebrow">Dining room</p>
+        <h1>Reservations & Queue</h1>
+      </div>
+      <div id="guest-status" class="guest-status">Ready</div>
+    </section>
+
+    <section class="guest-grid">
+      <form id="reservation-form" class="guest-card">
+        <h2>Book a Table</h2>
+        <input id="res-name" type="text" placeholder="Full name" required>
+        <input id="res-phone" type="text" placeholder="Phone number" required>
+        <input id="res-party" type="number" min="1" max="12" placeholder="Party size" required>
+        <input id="res-time" type="datetime-local" required>
+        <textarea id="res-note" placeholder="Notes"></textarea>
+        <button type="submit">Create Reservation</button>
+      </form>
+
+      <form id="queue-form" class="guest-card">
+        <h2>Join Virtual Queue</h2>
+        <input id="queue-name" type="text" placeholder="Full name" required>
+        <input id="queue-phone" type="text" placeholder="Phone number" required>
+        <input id="queue-party" type="number" min="1" max="12" placeholder="Party size" required>
+        <button type="submit">Join Queue</button>
+      </form>
+    </section>
+
+    <section class="guest-grid">
+      <div class="guest-card">
+        <h2>Your Reservations</h2>
+        <div id="reservation-list" class="guest-list"></div>
+      </div>
+      <div class="guest-card">
+        <h2>Queue Status</h2>
+        <div id="queue-list" class="guest-list"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="./assets/js/api.js"></script>
+  <script src="./assets/js/auth.js?v=5"></script>
+  <script src="./assets/js/reservations.js"></script>
+</body>
+</html>

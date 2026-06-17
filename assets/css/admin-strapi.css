@@ -398,3 +398,57 @@ select:focus {
 .profile-dropdown a:hover {
   background: var(--surface-1);
 }
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  min-height: 24px;
+  padding: 2px 8px;
+  background: var(--surface-2);
+  color: var(--ink);
+  font-size: 12px;
+  text-transform: capitalize;
+}
+
+@media (max-width: 900px) {
+  body {
+    overflow: auto;
+    height: auto;
+  }
+
+  .strapi-layout {
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  .strapi-sidebar {
+    width: 100%;
+    height: auto;
+  }
+
+  .strapi-sidebar-menu {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .menu-category {
+    grid-column: 1 / -1;
+  }
+
+  .strapi-main,
+  .strapi-content {
+    overflow: visible;
+  }
+
+  .strapi-content {
+    padding: 20px;
+  }
+
+  .strapi-dashboard-grid {
+    flex-direction: column;
+  }
+
+  .strapi-page-header h1 {
+    font-size: 32px;
+  }
+}

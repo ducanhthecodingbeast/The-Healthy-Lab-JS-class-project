@@ -44,6 +44,58 @@
     .status-delivering { background: #e67e22; }
     .status-delivered { background: #2ecc71; }
     .status-cancelled { background: #e74c3c; }
+    .loyalty-card {
+      border: 1px solid #eee;
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 22px;
+      background: #fffaf4;
+    }
+    .loyalty-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+    .loyalty-tier {
+      color: var(--cinnabar);
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .loyalty-points {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--eerie-black-1);
+      line-height: 1;
+    }
+    .loyalty-progress {
+      height: 8px;
+      background: #f0dfce;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 12px 0;
+    }
+    .loyalty-progress span {
+      display: block;
+      height: 100%;
+      background: var(--cinnabar);
+    }
+    .voucher-list {
+      display: grid;
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .voucher-chip {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border: 1px dashed #d7a86e;
+      background: #fff;
+      font-size: 1.3rem;
+    }
   </style>
 </head>
 <body>
@@ -65,6 +117,7 @@
   <main>
     <section class="dashboard-container">
       <h2 style="font-size: 2.5rem; margin-bottom: 20px; color: var(--eerie-black-1);">My Order History</h2>
+      <div id="loyalty-container" class="loyalty-card">Loading loyalty...</div>
       <div id="orders-container">Loading...</div>
     </section>
   </main>

@@ -75,6 +75,9 @@ function renderHeaderAuthState() {
       <li class="nav-item auth-link">
         <a href="${dashboardLink}" class="navbar-link" data-nav-link>Dashboard (${user.role})</a>
       </li>
+      <li class="nav-item auth-link">
+        <a href="reservations.html" class="navbar-link" data-nav-link>Reservations</a>
+      </li>
     `;
     navbarList.insertAdjacentHTML("beforeend", dashHtml);
 

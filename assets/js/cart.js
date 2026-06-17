@@ -28,12 +28,28 @@ const Cart = (() => {
 
   /* ─── Public API ─── */
   function add(item) {
-    // item = { id, name, category, price, details }
-    items.push({ ...item, id: Date.now() + Math.random() });
+    const key = item.product_id ? `product:${item.product_id}` : `custom:${item.name}:${item.details || ''}:${item.price}`;
+    const existing = items.find(i => i.key === key);
+    if (existing) {
+      existing.quantity += item.quantity || 1;
+    } else {
+      items.push({ ...item, id: Date.now() + Math.random(), key, quantity: item.quantity || 1 });
+    }
     save();
     renderBadge();
     renderDrawer();
     showToast(`${item.name} added to cart!`);
+  }
+
+  function setQuantity(id, quantity) {
+    if (quantity <= 0) {
+      remove(id);
+      return;
+    }
+    items = items.map(i => i.id === id ? { ...i, quantity } : i);
+    save();
+    renderBadge();
+    renderDrawer();
   }
 
   function remove(id) {
@@ -55,16 +71,17 @@ const Cart = (() => {
   }
 
   function getTotal() {
-    return items.reduce((sum, i) => sum + (i.price || 0), 0);
+    return items.reduce((sum, i) => sum + (i.price || 0) * (i.quantity || 1), 0);
   }
 
   /* ─── Badge (header cart icon counter) ─── */
   function renderBadge() {
     const badge = document.getElementById('cart-badge');
     if (!badge) return;
-    if (items.length > 0) {
+    const count = items.reduce((sum, i) => sum + (i.quantity || 1), 0);
+    if (count > 0) {
       badge.style.opacity = '1';
-      badge.textContent = items.length;
+      badge.textContent = count;
     } else {
       badge.style.opacity = '0';
       badge.textContent = '0';
@@ -113,15 +130,14 @@ const Cart = (() => {
         if (i.product_id) {
           return {
             product_id: parseInt(i.product_id),
-            quantity: 1,
+            quantity: i.quantity || 1,
             custom_details: i.details || ''
           };
         } else {
           return {
             product_name: i.name,
-            quantity: 1,
+            quantity: i.quantity || 1,
             unit_price: parseFloat(i.price),
-            total_price: parseFloat(i.price),
             custom_details: i.details || ''
           };
         }
@@ -170,7 +186,12 @@ const Cart = (() => {
             <div class="cart-item-details" style="font-size:1.3rem; color:#888; margin-top:4px;">${item.details || item.category || ''}</div>
           </div>
           <div style="display:flex; align-items:center; gap:12px;">
-            <span class="cart-item-price" style="font-size:1.6rem; font-weight:600;">$${item.price.toFixed(2)}</span>
+            <div style="display:flex; align-items:center; border:1px solid #ddd; border-radius:4px; overflow:hidden;">
+              <button class="cart-qty-btn" data-cart-id="${item.id}" data-step="-1" style="width:28px; height:28px; border:0; background:#f7f7f7; cursor:pointer;">-</button>
+              <span style="min-width:32px; text-align:center; font-size:1.4rem;">${item.quantity || 1}</span>
+              <button class="cart-qty-btn" data-cart-id="${item.id}" data-step="1" style="width:28px; height:28px; border:0; background:#f7f7f7; cursor:pointer;">+</button>
+            </div>
+            <span class="cart-item-price" style="font-size:1.6rem; font-weight:600;">$${((item.price || 0) * (item.quantity || 1)).toFixed(2)}</span>
             <button class="cart-remove-btn" data-cart-id="${item.id}" style="background:none; border:none; cursor:pointer; color:#e74c3c; font-size:1.8rem; line-height:1;" title="Remove">&times;</button>
           </div>
         `;
@@ -181,6 +202,14 @@ const Cart = (() => {
       container.querySelectorAll('.cart-remove-btn').forEach(btn => {
         btn.addEventListener('click', function () {
           remove(Number(this.dataset.cartId));
+        });
+      });
+      container.querySelectorAll('.cart-qty-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const id = Number(this.dataset.cartId);
+          const item = items.find(i => i.id === id);
+          if (!item) return;
+          setQuantity(id, (item.quantity || 1) + Number(this.dataset.step));
         });
       });
     }
@@ -242,7 +271,7 @@ const Cart = (() => {
     checkoutBtns.forEach(btn => btn.addEventListener('click', checkout));
   }
 
-  return { init, add, remove, clear, getAll, getTotal, renderBadge, renderDrawer, showToast, checkout };
+  return { init, add, remove, setQuantity, clear, getAll, getTotal, renderBadge, renderDrawer, showToast, checkout };
 })();
 
 document.addEventListener('DOMContentLoaded', Cart.init);

@@ -100,3 +100,58 @@ async function updateProduct(productId, productData) {
     body: JSON.stringify(productData),
   });
 }
+
+async function optionalApiRequest(path, options = {}, fallback = null) {
+  try {
+    return await apiRequest(path, options);
+  } catch (err) {
+    console.warn(`Optional API unavailable: ${path}`, err.message);
+    return fallback;
+  }
+}
+
+async function getStaffProfiles() {
+  return await optionalApiRequest("/staff", {}, null);
+}
+
+async function getReservations() {
+  return await optionalApiRequest("/reservations", {}, null);
+}
+
+async function createReservation(reservationData) {
+  return await optionalApiRequest("/reservations", {
+    method: "POST",
+    body: JSON.stringify(reservationData),
+  }, null);
+}
+
+async function getQueueEntries() {
+  return await optionalApiRequest("/queue", {}, null);
+}
+
+async function createQueueEntry(queueData) {
+  return await optionalApiRequest("/queue", {
+    method: "POST",
+    body: JSON.stringify(queueData),
+  }, null);
+}
+
+async function getInventoryItems() {
+  return await optionalApiRequest("/inventory", {}, null);
+}
+
+async function getSuppliers() {
+  return await optionalApiRequest("/suppliers", {}, null);
+}
+
+async function getNotifications() {
+  return await optionalApiRequest("/notifications", {}, null);
+}
+
+async function getMembership() {
+  return await optionalApiRequest("/memberships/me", {}, null);
+}
+
+async function getVouchers() {
+  return await optionalApiRequest("/vouchers", {}, null);
+}
