@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const user = getCurrentUser() || {};
   fillUserDefaults(user);
-  renderLocalLists();
+  loadServerLists();
 
   document.getElementById('reservation-form').addEventListener('submit', saveReservation);
   document.getElementById('queue-form').addEventListener('submit', saveQueueEntry);
@@ -47,11 +47,13 @@ async function saveReservation(event) {
     const list = readList(RESERVATION_KEY);
     list.unshift({ ...reservation, id: Date.now() });
     writeList(RESERVATION_KEY, list);
+    renderLocalLists();
+  } else {
+    await loadServerLists();
   }
   setStatus('Reservation saved');
   event.target.reset();
   fillUserDefaults(getCurrentUser() || {});
-  renderLocalLists();
 }
 
 async function saveQueueEntry(event) {
@@ -69,10 +71,29 @@ async function saveQueueEntry(event) {
     const list = readList(QUEUE_KEY);
     list.unshift({ ...entry, id: Date.now() });
     writeList(QUEUE_KEY, list);
+    renderLocalLists();
+  } else {
+    await loadServerLists();
   }
   setStatus('Queue entry saved');
   event.target.reset();
   fillUserDefaults(getCurrentUser() || {});
+}
+
+async function loadServerLists() {
+  const reservations = await getReservations();
+  const queueEntries = await getQueueEntries();
+  if (reservations || queueEntries) {
+    renderList('reservation-list', reservations || [], item => `
+      <strong>${item.customer_name} Â· ${item.party_size} guests</strong>
+      <span>${formatDateTime(item.reservation_time)} Â· ${item.status}</span>
+    `);
+    renderList('queue-list', queueEntries || [], item => `
+      <strong>${item.customer_name} Â· ${item.party_size} guests</strong>
+      <span>${item.status} Â· ${item.wait_minutes || 0} min</span>
+    `);
+    return;
+  }
   renderLocalLists();
 }
 
@@ -92,6 +113,11 @@ function renderList(id, list, template) {
   target.innerHTML = list.length
     ? list.map(item => `<div class="guest-list-item">${template(item)}</div>`).join('')
     : '<p style="font-size:1.4rem; color:#777; margin:0;">No entries yet.</p>';
+}
+
+function formatDateTime(value) {
+  if (!value) return 'Time pending';
+  return String(value).replace('T', ' ').slice(0, 16);
 }
 
 function setStatus(message) {
