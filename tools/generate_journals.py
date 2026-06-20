@@ -1,6 +1,6 @@
 import os
 
-with open("index.html", "r") as f:
+with open("frontend/public/index.html", "r") as f:
     lines = f.readlines()
 
 head_part = lines[:46]
@@ -62,7 +62,7 @@ j1_content = '''
 <p>You don't need a heavy workout. Just 10 minutes of stretching or walking gets the blood flowing and clears brain fog.</p>
 '''
 
-write_journal("journal-1.html", j1_title, j1_meta, j1_badge, j1_img, j1_content)
+write_journal("frontend/public/journal-1.html", j1_title, j1_meta, j1_badge, j1_img, j1_content)
 
 j2_title = "The Power of Fermented Foods for Gut Health"
 j2_meta = '<div class="journal-meta-item"><ion-icon name="calendar-outline"></ion-icon> <time datetime="2025-04-01">Apr 01 2025</time></div> <div class="journal-meta-item"><ion-icon name="person-outline"></ion-icon> <span>Chef Minh Dao</span></div>'
@@ -83,7 +83,7 @@ j2_content = '''
 <p>Start small. Add a forkful of raw sauerkraut to your salad, swap regular yogurt for kefir, or use miso paste in your salad dressings. At The Healthy Lab, we feature house-fermented pickles and kombucha on tap to make it easy to get your daily dose.</p>
 '''
 
-write_journal("journal-2.html", j2_title, j2_meta, j2_badge, j2_img, j2_content)
+write_journal("frontend/public/journal-2.html", j2_title, j2_meta, j2_badge, j2_img, j2_content)
 
 j3_title = "Building a Nourish Bowl: The Art of Balanced Eating"
 j3_meta = '<div class="journal-meta-item"><ion-icon name="calendar-outline"></ion-icon> <time datetime="2025-04-18">Apr 18 2025</time></div> <div class="journal-meta-item"><ion-icon name="person-outline"></ion-icon> <span>Hana Nguyen, RD</span></div>'
@@ -104,6 +104,6 @@ j3_content = '''
 <p>Tie it all together. A lemon-tahini drizzle, ginger-miso vinaigrette, or simple olive oil and balsamic. Keep it light and vibrant.</p>
 '''
 
-write_journal("journal-3.html", j3_title, j3_meta, j3_badge, j3_img, j3_content)
+write_journal("frontend/public/journal-3.html", j3_title, j3_meta, j3_badge, j3_img, j3_content)
 
 print("Files created successfully!")

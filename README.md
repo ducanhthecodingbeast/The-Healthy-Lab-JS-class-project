@@ -119,6 +119,6 @@ Backend endpoint summary:
 - `GET /users`
 - `GET /admin/summary`
 
-Frontend integration is intentionally not implemented in this backend-only pass. The next frontend coding agent should read [frontend-agent/FRONTEND_AGENT_TASKS.md](./frontend-agent/FRONTEND_AGENT_TASKS.md).
+Frontend integration is intentionally not implemented in this backend-only pass. The next frontend coding agent should read [FRONTEND_AGENT_TASKS.md](./docs/frontend/FRONTEND_AGENT_TASKS.md).
 
 More manual API tests are in [TESTING.md](./TESTING.md).

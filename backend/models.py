@@ -61,6 +61,7 @@ class OrderItem(Base):
     unit_price = Column(Float, nullable=False)
     total_price = Column(Float, nullable=False)
     custom_details = Column(Text, nullable=True)
+    custom_data = Column(Text, nullable=True)
 
 
 class Membership(Base):
@@ -141,6 +142,15 @@ class OrderStockDeduction(Base):
     id = Column(Integer, primary_key=True, index=True)
     order_id = Column(Integer, ForeignKey("orders.id"), unique=True, index=True, nullable=False)
     deducted_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+
+
+class OrderMembershipAward(Base):
+    __tablename__ = "order_membership_awards"
+
+    id = Column(Integer, primary_key=True, index=True)
+    order_id = Column(Integer, ForeignKey("orders.id"), unique=True, index=True, nullable=False)
+    points_awarded = Column(Integer, nullable=False)
+    awarded_at = Column(DateTime, default=datetime.utcnow, nullable=False)
 
 
 class RestaurantTable(Base):

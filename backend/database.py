@@ -17,13 +17,34 @@ Base = declarative_base()
 
 def create_db_and_tables():
     Base.metadata.create_all(bind=engine)
-    if DATABASE_URL.startswith("sqlite"):
-        with engine.begin() as connection:
-            inspector = inspect(connection)
-            if "order_items" in inspector.get_table_names():
-                columns = {column["name"] for column in inspector.get_columns("order_items")}
-                if "product_id" not in columns:
-                    connection.execute(text("ALTER TABLE order_items ADD COLUMN product_id INTEGER"))
+    apply_startup_schema_patches()
+
+
+# This project uses create_all for lightweight local SQLite deployments; keep
+# startup patches additive and idempotent instead of introducing Alembic here.
+SQLITE_SCHEMA_PATCHES = {
+    "order_items": [
+        ("product_id", "ALTER TABLE order_items ADD COLUMN product_id INTEGER"),
+        ("custom_data", "ALTER TABLE order_items ADD COLUMN custom_data TEXT"),
+    ],
+}
+
+
+def apply_startup_schema_patches():
+    if not DATABASE_URL.startswith("sqlite"):
+        return
+
+    with engine.begin() as connection:
+        inspector = inspect(connection)
+        table_names = set(inspector.get_table_names())
+        for table_name, patches in SQLITE_SCHEMA_PATCHES.items():
+            if table_name not in table_names:
+                continue
+            column_names = {column["name"] for column in inspector.get_columns(table_name)}
+            for column_name, statement in patches:
+                if column_name not in column_names:
+                    connection.execute(text(statement))
+                    column_names.add(column_name)
 
 
 def get_session():

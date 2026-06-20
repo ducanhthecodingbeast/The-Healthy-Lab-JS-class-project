@@ -11,6 +11,7 @@ from models import (
     Notification,
     Order,
     OrderItem,
+    OrderMembershipAward,
     OrderStockDeduction,
     Payment,
     Product,
@@ -127,6 +128,7 @@ def seed():
         session.query(QueueEntry).delete()
         session.query(Reservation).delete()
         session.query(RestaurantTable).delete()
+        session.query(OrderMembershipAward).delete()
         session.query(OrderStockDeduction).delete()
         session.query(OrderItem).delete()
         session.query(Order).delete()
@@ -344,6 +346,7 @@ def seed():
                 membership.points += int(order.total_price)
                 membership.tier = "bronze"
                 session.add(membership)
+                session.add(OrderMembershipAward(order_id=order.id, points_awarded=int(order.total_price)))
                 session.commit()
 
         print(

@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Literal
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -78,13 +78,48 @@ class ProductRead(BaseModel):
     is_available: bool
 
 
+class FoodLabCustomSelection(BaseModel):
+    base: str
+    protein: str
+    dressing: str
+    extras: list[str] = Field(default_factory=list, max_length=3)
+
+
+class FoodLabOptionRead(BaseModel):
+    id: str
+    label: str
+    price_delta: float = 0
+
+
+class FoodLabOptionsRead(BaseModel):
+    bases: list[FoodLabOptionRead]
+    proteins: list[FoodLabOptionRead]
+    extras: list[FoodLabOptionRead]
+    dressings: list[FoodLabOptionRead]
+
+
+class FoodLabCustomPreviewCreate(BaseModel):
+    selection: FoodLabCustomSelection
+    quantity: int = Field(default=1, gt=0)
+
+
+class FoodLabCustomPreviewRead(BaseModel):
+    product_name: str
+    custom_details: str
+    unit_price: float
+    total_price: float
+    inventory_needs: dict[str, float]
+    custom_data: dict[str, Any]
+
+
 class OrderItemCreate(BaseModel):
     product_id: int | None = None
     product_name: str | None = None
     quantity: int = Field(gt=0)
     unit_price: float | None = Field(default=None, gt=0)
-    total_price: float | None = Field(default=None, ge=0)
+    total_price: float | None = Field(default=None, gt=0)
     custom_details: str | None = None
+    custom_food_lab: FoodLabCustomSelection | None = None
 
 
 class OrderCreate(BaseModel):
@@ -103,6 +138,7 @@ class OrderItemRead(BaseModel):
     unit_price: float
     total_price: float
     custom_details: str | None = None
+    custom_data: dict[str, Any] | None = None
 
 
 class OrderRead(BaseModel):
@@ -310,6 +346,10 @@ class PaymentCreate(BaseModel):
     amount: float = Field(gt=0)
     method: str = "cash"
     status: PaymentStatus = "pending"
+
+
+class PaymentStatusUpdate(BaseModel):
+    status: PaymentStatus
 
 
 class PaymentRead(BaseModel):

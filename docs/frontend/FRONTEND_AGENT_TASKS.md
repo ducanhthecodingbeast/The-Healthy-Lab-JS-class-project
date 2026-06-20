@@ -227,7 +227,7 @@ customer@healthylab.test
 ```text
 You are working on The Healthy Lab frontend. Do not change the FastAPI backend.
 Use vanilla JavaScript only. Keep the existing visual style. Connect the existing static
-pages to the backend described in frontend-agent/FRONTEND_AGENT_TASKS.md.
+pages to the backend described in docs/frontend/FRONTEND_AGENT_TASKS.md.
 Implement API helpers, auth helpers, real cart checkout, customer order history,
 chef dashboard, delivery dashboard, admin dashboard, and role-based page protection.
 Do not use React, Supabase, payment gateways, maps, email verification, or cloud storage.

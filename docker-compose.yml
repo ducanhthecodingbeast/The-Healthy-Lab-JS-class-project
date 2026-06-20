@@ -1,6 +1,8 @@
 services:
   frontend:
-    build: .
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
     ports:
       - "5500:5500"
     depends_on:
