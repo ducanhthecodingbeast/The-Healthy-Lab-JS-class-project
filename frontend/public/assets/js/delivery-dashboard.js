@@ -2,12 +2,18 @@ document.addEventListener('DOMContentLoaded', () => {
   if (!requireRole('delivery')) return;
 
   const container = document.getElementById('orders-container');
+  const statActive = document.getElementById('stat-active');
+  const statDelivered = document.getElementById('stat-delivered');
 
   async function loadOrders() {
     try {
       const allOrders = await getAllOrders();
-      // Delivery sees ready and delivering orders
+      
       const orders = allOrders.filter(o => o.status === 'ready' || o.status === 'delivering');
+      const deliveredToday = allOrders.filter(o => o.status === 'delivered').length; // roughly
+
+      if (statActive) statActive.textContent = orders.length;
+      if (statDelivered) statDelivered.textContent = deliveredToday;
       
       if (orders.length === 0) {
         container.innerHTML = '<p style="font-size: 1.6rem; color: #666;">No orders ready for delivery.</p>';
@@ -18,10 +24,14 @@ document.addEventListener('DOMContentLoaded', () => {
       orders.forEach(order => {
         let actionBtn = '';
         if (order.status === 'ready') {
-          actionBtn = `<button class="action-btn" onclick="updateStatus(${order.id}, 'delivering')">Start Delivery</button>`;
+          actionBtn = `<button class="btn-action btn-primary" onclick="updateStatus(${order.id}, 'delivering')">Start Delivery</button>`;
         } else if (order.status === 'delivering') {
-          actionBtn = `<button class="action-btn delivered" onclick="updateStatus(${order.id}, 'delivered')">Mark Delivered</button>`;
+          actionBtn = `<button class="btn-action btn-success" onclick="updateStatus(${order.id}, 'delivered')">Mark Delivered</button>`;
         }
+
+        let itemsHtml = order.items && order.items.length ? order.items.map(i => `
+          <div style="font-size: 1.3rem; color: #555;">${i.quantity}x ${i.product_name}</div>
+        `).join('') : '<div style="font-size: 1.3rem; color: #888;">Items not available</div>';
 
         const html = `
           <div class="order-card ${order.status}">
@@ -34,6 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
               <p><strong>Phone:</strong> ${order.customer_phone || 'N/A'}</p>
               <p><strong>Address:</strong> ${order.delivery_address}</p>
               ${order.note ? `<p><strong>Note:</strong> ${order.note}</p>` : ''}
+              <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #ddd;">
+                <strong>Items:</strong>
+                ${itemsHtml}
+              </div>
             </div>
             <div style="text-align: right;">
               ${actionBtn}

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cashier Dashboard | FoodFlow</title>
+  <link rel="shortcut icon" href="./assets/images/50Tag.png" type="image/png">
+  <link rel="stylesheet" href="./assets/css/admin-strapi.css?v=3">
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+  <div class="strapi-layout">
+    <aside class="strapi-sidebar">
+      <a href="index.html" class="strapi-logo-area">
+        <ion-icon name="nutrition"></ion-icon> FoodFlow
+      </a>
+      
+      <div class="strapi-sidebar-menu">
+        <div class="menu-category">CASHIER</div>
+        <a href="#" class="active" onclick="switchView('payments-view', this)"><ion-icon name="cash-outline"></ion-icon> Payments</a>
+        <a href="#" onclick="switchView('tables-view', this)"><ion-icon name="restaurant-outline"></ion-icon> Tables</a>
+        <a href="#" onclick="switchView('reservations-view', this)"><ion-icon name="calendar-outline"></ion-icon> Reservations</a>
+        <a href="#" onclick="switchView('queue-view', this)"><ion-icon name="hourglass-outline"></ion-icon> Queue</a>
+        
+        <div class="menu-category">GENERAL</div>
+        <a href="index.html"><ion-icon name="home-outline"></ion-icon> Main Site</a>
+        <a href="#" onclick="logout()"><ion-icon name="log-out-outline"></ion-icon> Logout</a>
+      </div>
+    </aside>
+
+    <div class="strapi-main">
+      <header class="strapi-topbar">
+        <div class="strapi-topbar-right">
+          <div class="profile-dropdown-container">
+            <span id="cashier-profile-name" style="font-weight:600; margin-right:10px;">Cashier</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="strapi-content">
+        
+        <!-- PAYMENTS VIEW -->
+        <div id="payments-view" class="view-section">
+          <div class="strapi-page-header">
+            <h1>Payment Management</h1>
+          </div>
+          <div class="strapi-card" style="padding: 0;">
+            <div style="overflow-x: auto;">
+              <table class="strapi-users-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Order ID</th>
+                    <th>Amount</th>
+                    <th>Method</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="payments-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLES VIEW -->
+        <div id="tables-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header">
+            <h1>Tables</h1>
+          </div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>Name</th><th>Capacity</th><th>Status</th></tr></thead>
+                <tbody id="tables-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESERVATIONS VIEW -->
+        <div id="reservations-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header">
+            <h1>Reservations</h1>
+          </div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>ID</th><th>Customer</th><th>Phone</th><th>Party</th><th>Time</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="reservations-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUEUE VIEW -->
+        <div id="queue-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header" style="margin-bottom:15px;">
+            <div>
+              <h1 style="margin-bottom:5px;">Virtual Queue</h1>
+            </div>
+            <button class="strapi-btn-primary" onclick="callNext()">
+              Call Next
+            </button>
+          </div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>ID</th><th>Customer</th><th>Party</th><th>Status</th><th>Wait min</th><th>Actions</th></tr></thead>
+                <tbody id="queue-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="./assets/js/api.js"></script>
+  <script src="./assets/js/auth.js?v=5"></script>
+  <script src="./assets/js/cashier-dashboard.js"></script>
+</body>
+</html>

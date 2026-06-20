@@ -155,3 +155,126 @@ async function getMembership() {
 async function getVouchers() {
   return await optionalApiRequest("/vouchers", {}, null);
 }
+
+// --- New additions ---
+async function getFoodLabOptions() {
+  return await optionalApiRequest("/food-lab/options", {}, null);
+}
+
+async function previewFoodLabItem(data) {
+  return await optionalApiRequest("/food-lab/preview", {
+    method: "POST",
+    body: JSON.stringify(data),
+  }, null);
+}
+
+async function getPayments(filters = {}) {
+  const query = new URLSearchParams(filters).toString();
+  const url = query ? `/payments?${query}` : "/payments";
+  return await optionalApiRequest(url, {}, null);
+}
+
+async function createPayment(paymentData) {
+  return await optionalApiRequest("/payments", {
+    method: "POST",
+    body: JSON.stringify(paymentData),
+  }, null);
+}
+
+async function updatePaymentStatus(paymentId, status) {
+  return await optionalApiRequest(`/payments/${paymentId}/status`, {
+    method: "PUT",
+    body: JSON.stringify({ status }),
+  }, null);
+}
+
+async function getIngredients() {
+  return await optionalApiRequest("/ingredients", {}, null);
+}
+
+async function createIngredient(data) {
+  return await optionalApiRequest("/ingredients", {
+    method: "POST",
+    body: JSON.stringify(data),
+  }, null);
+}
+
+async function getRecipes(productId = null) {
+  const query = productId ? `?product_id=${productId}` : "";
+  return await optionalApiRequest(`/recipes${query}`, {}, null);
+}
+
+async function createRecipeItem(data) {
+  return await optionalApiRequest("/recipes", {
+    method: "POST",
+    body: JSON.stringify(data),
+  }, null);
+}
+
+async function getInventoryLots() {
+  return await optionalApiRequest("/inventory/lots", {}, null);
+}
+
+async function createInventoryLot(data) {
+  return await optionalApiRequest("/inventory/lots", {
+    method: "POST",
+    body: JSON.stringify(data),
+  }, null);
+}
+
+async function createSupplier(data) {
+  return await optionalApiRequest("/suppliers", {
+    method: "POST",
+    body: JSON.stringify(data),
+  }, null);
+}
+
+async function getTables() {
+  return await optionalApiRequest("/tables", {}, null);
+}
+
+async function createTable(data) {
+  return await optionalApiRequest("/tables", {
+    method: "POST",
+    body: JSON.stringify(data),
+  }, null);
+}
+
+async function updateReservationStatus(reservationId, status) {
+  return await optionalApiRequest(`/reservations/${reservationId}/status`, {
+    method: "PUT",
+    body: JSON.stringify({ status }),
+  }, null);
+}
+
+async function completeReservation(reservationId) {
+  return await optionalApiRequest(`/reservations/${reservationId}/complete`, {
+    method: "POST",
+  }, null);
+}
+
+async function callNextQueueEntry() {
+  return await optionalApiRequest("/queue/next/call", {
+    method: "POST",
+  }, null);
+}
+
+async function seatQueueEntry(entryId) {
+  return await optionalApiRequest(`/queue/${entryId}/seat`, {
+    method: "POST",
+  }, null);
+}
+
+async function updateQueueStatus(entryId, data) {
+  return await optionalApiRequest(`/queue/${entryId}/status`, {
+    method: "PUT",
+    body: JSON.stringify(data),
+  }, null);
+}
+
+async function createStaffProfile(data) {
+  return await optionalApiRequest("/staff", {
+    method: "POST",
+    body: JSON.stringify(data),
+  }, null);
+}

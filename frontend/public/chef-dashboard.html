@@ -61,8 +61,11 @@
       
       <div class="strapi-sidebar-menu">
         <div class="menu-category">KITCHEN</div>
-        <a href="#" class="active"><ion-icon name="list-outline"></ion-icon> Kitchen Orders</a>
-        <a href="#"><ion-icon name="time-outline"></ion-icon> Prep History</a>
+        <a href="#" class="active" onclick="switchView('orders-view', this)"><ion-icon name="list-outline"></ion-icon> Kitchen Orders</a>
+        <a href="#" onclick="switchView('inventory-view', this)"><ion-icon name="cube-outline"></ion-icon> Inventory</a>
+        <a href="#" onclick="switchView('ingredients-view', this)"><ion-icon name="leaf-outline"></ion-icon> Ingredients</a>
+        <a href="#" onclick="switchView('recipes-view', this)"><ion-icon name="book-outline"></ion-icon> Recipes</a>
+        <a href="#" onclick="switchView('notifications-view', this)"><ion-icon name="notifications-outline"></ion-icon> Notifications</a>
         
         <div class="menu-category">GENERAL</div>
         <a href="#" onclick="logout()"><ion-icon name="log-out-outline"></ion-icon> Logout</a>
@@ -73,7 +76,7 @@
       <header class="strapi-topbar">
         <div class="strapi-topbar-right">
           <div class="profile-dropdown-container" style="position:relative; display:flex; align-items:center; cursor:pointer;" onclick="toggleDropdown(event)">
-            <span style="font-weight:600; margin-right:10px;">Chef User</span>
+            <span id="chef-profile-name" style="font-weight:600; margin-right:10px;">Chef User</span>
             <ion-icon name="caret-down-outline" style="font-size:12px; margin-right:10px;"></ion-icon>
             <div class="avatar" style="background:#2ecc71; color:#fff; border-radius:3px;">CH</div>
             
@@ -91,34 +94,108 @@
       </header>
 
       <main class="strapi-content">
-        <div class="strapi-page-header">
-          <div>
-            <h1>Kitchen Display System (KDS)</h1>
-            <p style="color:var(--text-gray); font-size:13px; margin-top:5px;">Manage active kitchen orders</p>
-          </div>
-        </div>
-
-        <div class="strapi-dashboard-grid">
-          <div class="strapi-main-column" style="flex:3;">
-            <div id="orders-container">
-              <p style="font-size:14px; color:var(--text-gray);">Loading orders...</p>
+        
+        <!-- ORDERS VIEW -->
+        <div id="orders-view" class="view-section">
+          <div class="strapi-page-header">
+            <div>
+              <h1>Kitchen Display System (KDS)</h1>
+              <p style="color:var(--text-gray); font-size:13px; margin-top:5px;">Manage active kitchen orders</p>
             </div>
           </div>
 
-          <div class="strapi-side-column" style="flex:1;">
-            <div class="strapi-card" style="padding: 20px; background:#fafafb;">
-              <h3 style="margin:0 0 15px 0; font-size:12px; color:var(--text-gray); text-transform:uppercase; letter-spacing:0.5px;">KITCHEN STATS</h3>
-              <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
-                <span style="font-size:13px; color:var(--text-dark);">Active Orders</span>
-                <span style="font-size:13px; font-weight:700; color:var(--primary-color);">0</span>
+          <div class="strapi-dashboard-grid">
+            <div class="strapi-main-column" style="flex:3;">
+              <div id="orders-container">
+                <p style="font-size:14px; color:var(--text-gray);">Loading orders...</p>
               </div>
-              <div style="display:flex; justify-content:space-between;">
-                <span style="font-size:13px; color:var(--text-dark);">Completed Today</span>
-                <span style="font-size:13px; font-weight:700; color:#2ecc71;">0</span>
+            </div>
+
+            <div class="strapi-side-column" style="flex:1;">
+              <div class="strapi-card" style="padding: 20px; background:#fafafb;">
+                <h3 style="margin:0 0 15px 0; font-size:12px; color:var(--text-gray); text-transform:uppercase; letter-spacing:0.5px;">KITCHEN STATS</h3>
+                <div style="display:flex; justify-content:space-between; margin-bottom:10px;">
+                  <span style="font-size:13px; color:var(--text-dark);">Active Orders</span>
+                  <span id="stat-active" style="font-size:13px; font-weight:700; color:var(--primary-color);">0</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
+        <!-- INVENTORY VIEW -->
+        <div id="inventory-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header"><h1>Inventory</h1></div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>Ingredient</th><th>Stock</th><th>Unit</th><th>Low Stock At</th><th>Expires</th></tr></thead>
+                <tbody id="inventory-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- INGREDIENTS VIEW -->
+        <div id="ingredients-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header"><h1>Ingredients</h1></div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>ID</th><th>Name</th><th>Unit</th><th>Low Stock Thresh</th></tr></thead>
+                <tbody id="ingredients-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECIPES VIEW -->
+        <div id="recipes-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header" style="margin-bottom:15px;">
+            <h1>Recipes</h1>
+            <button class="strapi-btn-primary" onclick="document.getElementById('recipe-form').style.display='block'">
+              <ion-icon name="add-outline"></ion-icon> Add Recipe Item
+            </button>
+          </div>
+          <div class="strapi-dashboard-grid">
+            <div class="strapi-main-column">
+              <div class="strapi-card" style="padding:0;">
+                <div style="overflow-x:auto;">
+                  <table class="strapi-users-table">
+                    <thead><tr><th>ID</th><th>Product</th><th>Ingredient</th><th>Quantity</th></tr></thead>
+                    <tbody id="recipes-table"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="strapi-side-column">
+              <div id="recipe-form" class="strapi-card" style="display:none;">
+                <h3 style="margin-bottom:15px;">Add Recipe Item</h3>
+                <select id="rec-product" class="form-input" style="margin-bottom:10px;"><option value="">Select Product...</option></select>
+                <select id="rec-ingredient" class="form-input" style="margin-bottom:10px;"><option value="">Select Ingredient...</option></select>
+                <input type="number" id="rec-qty" class="form-input" placeholder="Quantity required" step="0.01" required>
+                <div style="display:flex; gap:10px;">
+                  <button class="btn-action btn-primary" onclick="saveRecipe()">Save</button>
+                  <button class="btn-action btn-danger" onclick="document.getElementById('recipe-form').style.display='none'">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTIFICATIONS VIEW -->
+        <div id="notifications-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header"><h1>Notifications & Alerts</h1></div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>Level</th><th>Title</th><th>Message</th><th>Time</th></tr></thead>
+                <tbody id="notifications-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
       </main>
     </div>
   </div>

@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   async function loadOrders() {
     try {
       const orders = await getMyOrders();
+
       await renderLoyalty(orders);
       if (orders.length === 0) {
         container.innerHTML = '<p style="font-size: 1.6rem; color: #666;">You have no orders yet.</p>';

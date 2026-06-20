@@ -175,34 +175,70 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- 5. CART INTEGRATION ---
   const cartBtn = document.querySelector('[data-purpose="add-to-cart-button"]');
   if (cartBtn) {
-    cartBtn.addEventListener('click', () => {
+    cartBtn.addEventListener('click', async () => {
       if (selectedItems.length === 0) {
         alert("Please select some ingredients first!");
         return;
       }
       
-      let formatName = "Custom Meal";
-      if (window.location.pathname.includes('salad')) formatName = "Fresh Salad";
-      else if (window.location.pathname.includes('wrap')) formatName = "Artisan Wrap";
-      else if (window.location.pathname.includes('smoothie')) formatName = "Super Smoothie";
-      else formatName = "Signature Bowl";
-      
-      let tPrice = getFormatBasePrice();
-      selectedItems.forEach(i => tPrice += i.price);
-      
-      const meal = {
-        id: 'meal_' + Date.now(),
-        name: formatName,
-        price: tPrice,
-        image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&h=300&fit=crop',
-        details: selectedItems.map(i => i.name).join(', ')
-      };
+      let formatName = "bowl";
+      if (window.location.pathname.includes('salad')) formatName = "salad";
+      else if (window.location.pathname.includes('wrap')) formatName = "wrap";
+      else if (window.location.pathname.includes('smoothie')) formatName = "smoothie";
+      else if (window.location.pathname.includes('juice')) formatName = "juice";
+
+      let meal = {};
+      const originalCartBtnText = cartBtn.innerText;
+      cartBtn.innerText = 'Adding...';
+      cartBtn.disabled = true;
+
+      try {
+        if (typeof previewFoodLabItem === 'function') {
+          const res = await previewFoodLabItem({
+            format: formatName,
+            selections: selectedItems.map(i => i.name)
+          });
+          if (res && res.product_name) {
+            meal = {
+              id: 'meal_' + Date.now(),
+              name: res.product_name,
+              price: res.unit_price || res.total_price || 0,
+              image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&h=300&fit=crop',
+              details: res.custom_details || selectedItems.map(i => i.name).join(', ')
+            };
+          }
+        }
+      } catch (e) {
+        console.warn('Food lab preview error:', e);
+      }
+
+      if (!meal.name) {
+        let displayFormat = "Signature Bowl";
+        if (formatName === "salad") displayFormat = "Fresh Salad";
+        else if (formatName === "wrap") displayFormat = "Artisan Wrap";
+        else if (formatName === "smoothie") displayFormat = "Super Smoothie";
+        else if (formatName === "juice") displayFormat = "Cold Pressed Juice";
+        
+        let tPrice = getFormatBasePrice();
+        selectedItems.forEach(i => tPrice += i.price);
+        
+        meal = {
+          id: 'meal_' + Date.now(),
+          name: displayFormat,
+          price: tPrice,
+          image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300&h=300&fit=crop',
+          details: selectedItems.map(i => i.name).join(', ')
+        };
+      }
+
+      cartBtn.innerText = originalCartBtnText;
+      cartBtn.disabled = false;
       
       // Ensure cart.js functions exist
       if (window.Cart) {
         Cart.add(meal);
       } else {
-        alert(`Added ${formatName} to cart!`);
+        alert(`Added ${meal.name} to cart!`);
       }
     });
   }

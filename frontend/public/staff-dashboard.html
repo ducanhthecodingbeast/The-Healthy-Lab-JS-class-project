@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Staff Dashboard | FoodFlow</title>
+  <link rel="shortcut icon" href="./assets/images/50Tag.png" type="image/png">
+  <link rel="stylesheet" href="./assets/css/admin-strapi.css?v=3">
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</head>
+<body>
+  <div class="strapi-layout">
+    <aside class="strapi-sidebar">
+      <a href="index.html" class="strapi-logo-area">
+        <ion-icon name="nutrition"></ion-icon> FoodFlow
+      </a>
+      
+      <div class="strapi-sidebar-menu">
+        <div class="menu-category">STAFF INVENTORY</div>
+        <a href="#" class="active" onclick="switchView('inventory-view', this)"><ion-icon name="cube-outline"></ion-icon> Inventory</a>
+        <a href="#" onclick="switchView('lots-view', this)"><ion-icon name="layers-outline"></ion-icon> Inventory Lots</a>
+        <a href="#" onclick="switchView('ingredients-view', this)"><ion-icon name="leaf-outline"></ion-icon> Ingredients</a>
+        <a href="#" onclick="switchView('suppliers-view', this)"><ion-icon name="business-outline"></ion-icon> Suppliers</a>
+        
+        <div class="menu-category">FRONT OF HOUSE</div>
+        <a href="#" onclick="switchView('reservations-view', this)"><ion-icon name="calendar-outline"></ion-icon> Reservations</a>
+        <a href="#" onclick="switchView('queue-view', this)"><ion-icon name="hourglass-outline"></ion-icon> Queue</a>
+        
+        <div class="menu-category">SYSTEM</div>
+        <a href="#" onclick="switchView('notifications-view', this)"><ion-icon name="notifications-outline"></ion-icon> Notifications</a>
+
+        <div class="menu-category">GENERAL</div>
+        <a href="index.html"><ion-icon name="home-outline"></ion-icon> Main Site</a>
+        <a href="#" onclick="logout()"><ion-icon name="log-out-outline"></ion-icon> Logout</a>
+      </div>
+    </aside>
+
+    <div class="strapi-main">
+      <header class="strapi-topbar">
+        <div class="strapi-topbar-right">
+          <div class="profile-dropdown-container">
+            <span id="staff-profile-name" style="font-weight:600; margin-right:10px;">Staff</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="strapi-content">
+        
+        <!-- INVENTORY VIEW -->
+        <div id="inventory-view" class="view-section">
+          <div class="strapi-page-header">
+            <h1>Inventory Overview</h1>
+          </div>
+          <div class="strapi-card" style="padding: 0;">
+            <div style="overflow-x: auto;">
+              <table class="strapi-users-table">
+                <thead>
+                  <tr>
+                    <th>Ingredient Name</th>
+                    <th>Stock</th>
+                    <th>Unit</th>
+                    <th>Low Stock Threshold</th>
+                    <th>Expires At</th>
+                  </tr>
+                </thead>
+                <tbody id="inventory-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- LOTS VIEW -->
+        <div id="lots-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header" style="margin-bottom:15px;">
+            <h1>Inventory Lots</h1>
+            <button class="strapi-btn-primary" onclick="document.getElementById('lot-form').style.display='block'">
+              <ion-icon name="add-outline"></ion-icon> Add Lot
+            </button>
+          </div>
+          <div class="strapi-dashboard-grid">
+            <div class="strapi-main-column">
+              <div class="strapi-card" style="padding:0;">
+                <div style="overflow-x:auto;">
+                  <table class="strapi-users-table">
+                    <thead><tr><th>ID</th><th>Ingredient ID</th><th>Supplier ID</th><th>Quantity</th><th>Unit Cost</th><th>Expires At</th></tr></thead>
+                    <tbody id="lots-table"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="strapi-side-column">
+              <div id="lot-form" class="strapi-card" style="display:none;">
+                <h3 style="margin-bottom:15px;">Add Inventory Lot</h3>
+                <input type="number" id="lot-ingredient" class="form-input" placeholder="Ingredient ID" required>
+                <input type="number" id="lot-supplier" class="form-input" placeholder="Supplier ID (optional)">
+                <input type="number" id="lot-qty" class="form-input" placeholder="Quantity" step="0.01" required>
+                <input type="number" id="lot-cost" class="form-input" placeholder="Unit Cost" step="0.01" required>
+                <input type="datetime-local" id="lot-expires" class="form-input" placeholder="Expires At (optional)">
+                <div style="display:flex; gap:10px;">
+                  <button class="btn-action btn-primary" onclick="saveLot()">Save</button>
+                  <button class="btn-action btn-danger" onclick="document.getElementById('lot-form').style.display='none'">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- INGREDIENTS VIEW -->
+        <div id="ingredients-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header" style="margin-bottom:15px;">
+            <h1>Ingredients</h1>
+            <button class="strapi-btn-primary" onclick="document.getElementById('ingredient-form').style.display='block'">
+              <ion-icon name="add-outline"></ion-icon> Add Ingredient
+            </button>
+          </div>
+          <div class="strapi-dashboard-grid">
+            <div class="strapi-main-column">
+              <div class="strapi-card" style="padding:0;">
+                <div style="overflow-x:auto;">
+                  <table class="strapi-users-table">
+                    <thead><tr><th>ID</th><th>Name</th><th>Unit</th><th>Low Stock Thresh</th></tr></thead>
+                    <tbody id="ingredients-table"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="strapi-side-column">
+              <div id="ingredient-form" class="strapi-card" style="display:none;">
+                <h3 style="margin-bottom:15px;">Add Ingredient</h3>
+                <input type="text" id="ing-name" class="form-input" placeholder="Name" required>
+                <input type="text" id="ing-unit" class="form-input" placeholder="Unit (e.g. kg, ml)" required>
+                <input type="number" id="ing-low" class="form-input" placeholder="Low Stock Threshold" step="0.01">
+                <div style="display:flex; gap:10px;">
+                  <button class="btn-action btn-primary" onclick="saveIngredient()">Save</button>
+                  <button class="btn-action btn-danger" onclick="document.getElementById('ingredient-form').style.display='none'">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUPPLIERS VIEW -->
+        <div id="suppliers-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header" style="margin-bottom:15px;">
+            <h1>Suppliers</h1>
+            <button class="strapi-btn-primary" onclick="document.getElementById('supplier-form').style.display='block'">
+              <ion-icon name="add-outline"></ion-icon> Add Supplier
+            </button>
+          </div>
+          <div class="strapi-dashboard-grid">
+            <div class="strapi-main-column">
+              <div class="strapi-card" style="padding:0;">
+                <div style="overflow-x:auto;">
+                  <table class="strapi-users-table">
+                    <thead><tr><th>ID</th><th>Name</th><th>Contact</th><th>Phone</th><th>Item</th></tr></thead>
+                    <tbody id="suppliers-table"></tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="strapi-side-column">
+              <div id="supplier-form" class="strapi-card" style="display:none;">
+                <h3 style="margin-bottom:15px;">Add Supplier</h3>
+                <input type="text" id="sup-name" class="form-input" placeholder="Name" required>
+                <input type="text" id="sup-contact" class="form-input" placeholder="Contact Name">
+                <input type="text" id="sup-phone" class="form-input" placeholder="Phone">
+                <input type="text" id="sup-item" class="form-input" placeholder="Item">
+                <div style="display:flex; gap:10px;">
+                  <button class="btn-action btn-primary" onclick="saveSupplier()">Save</button>
+                  <button class="btn-action btn-danger" onclick="document.getElementById('supplier-form').style.display='none'">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RESERVATIONS VIEW -->
+        <div id="reservations-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header"><h1>Reservations</h1></div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>ID</th><th>Customer</th><th>Phone</th><th>Party</th><th>Time</th><th>Status</th><th>Actions</th></tr></thead>
+                <tbody id="reservations-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- QUEUE VIEW -->
+        <div id="queue-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header" style="margin-bottom:15px;">
+            <div><h1 style="margin-bottom:5px;">Virtual Queue</h1></div>
+            <button class="strapi-btn-primary" onclick="callNext()"><ion-icon name="notifications-outline"></ion-icon> Call Next</button>
+          </div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>ID</th><th>Customer</th><th>Party</th><th>Status</th><th>Wait min</th><th>Actions</th></tr></thead>
+                <tbody id="queue-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTIFICATIONS VIEW -->
+        <div id="notifications-view" class="view-section" style="display:none;">
+          <div class="strapi-page-header"><h1>Notifications</h1></div>
+          <div class="strapi-card" style="padding:0;">
+            <div style="overflow-x:auto;">
+              <table class="strapi-users-table">
+                <thead><tr><th>Level</th><th>Title</th><th>Message</th><th>Created At</th></tr></thead>
+                <tbody id="notifications-table"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <script src="./assets/js/api.js"></script>
+  <script src="./assets/js/auth.js?v=5"></script>
+  <script src="./assets/js/staff-dashboard.js"></script>
+</body>
+</html>

@@ -110,6 +110,14 @@ const Cart = (() => {
         <input type="text" id="co-phone" placeholder="Phone Number" required value="${user.phone || ''}" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1.4rem;">
         <input type="text" id="co-address" placeholder="Delivery Address" required value="${user.address || ''}" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1.4rem;">
         <textarea id="co-note" placeholder="Order Note (e.g., Deliver after 6PM)" style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1.4rem; resize: vertical;"></textarea>
+        
+        <select id="co-payment-method" required style="padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 1.4rem;">
+          <option value="cash">Cash on Delivery</option>
+          <option value="card">Credit Card</option>
+          <option value="momo">MoMo</option>
+          <option value="bank_transfer">Bank Transfer</option>
+        </select>
+
         <button type="submit" class="btn btn-hover" style="background-color:var(--cinnabar); color:white; padding:12px; font-size:1.6rem; border:none; border-radius:4px; margin-top: 10px; cursor:pointer;">Confirm Order</button>
       </form>
     `;
@@ -125,6 +133,7 @@ const Cart = (() => {
       const phone = document.getElementById('co-phone').value;
       const address = document.getElementById('co-address').value;
       const note = document.getElementById('co-note').value;
+      const paymentMethod = document.getElementById('co-payment-method').value;
       
       const orderItems = items.map(i => {
         if (i.product_id) {
@@ -145,13 +154,32 @@ const Cart = (() => {
 
       try {
         if (typeof createOrder === 'function') {
-          await createOrder({
+          const newOrder = await createOrder({
             customer_name: name,
             customer_phone: phone,
             delivery_address: address,
             note: note,
             items: orderItems
           });
+          
+          if (typeof createPayment === 'function') {
+            try {
+              await createPayment({
+                order_id: newOrder.id,
+                amount: newOrder.total_price,
+                method: paymentMethod,
+                status: 'pending'
+              });
+            } catch(err) {
+              showToast('Order placed, but payment creation failed: ' + err.message);
+              setTimeout(() => {
+                clear();
+                window.location.href = 'order-history.html';
+              }, 2500);
+              return;
+            }
+          }
+
           showToast('Order placed successfully!');
           clear();
           window.location.href = 'order-history.html';

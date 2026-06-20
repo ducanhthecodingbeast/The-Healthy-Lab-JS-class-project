@@ -69,6 +69,8 @@ function renderHeaderAuthState() {
     if (user.role === "customer") dashboardLink = "order-history.html";
     if (user.role === "chef") dashboardLink = "chef-dashboard.html";
     if (user.role === "delivery") dashboardLink = "delivery-dashboard.html";
+    if (user.role === "cashier") dashboardLink = "cashier-dashboard.html";
+    if (user.role === "staff") dashboardLink = "staff-dashboard.html";
     if (user.role === "admin") dashboardLink = "admin-dashboard.html";
 
     const dashHtml = `
