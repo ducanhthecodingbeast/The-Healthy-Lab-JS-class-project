@@ -87,7 +87,7 @@
     </section>
   </main>
 
-  <script src="./assets/js/api.js"></script>
+  <script src="./assets/js/api.js?v=2"></script>
   <script src="./assets/js/auth.js?v=5"></script>
   <script>
     document.getElementById('login-form').addEventListener('submit', async (e) => {
@@ -98,16 +98,18 @@
       errorMsg.textContent = '';
       
       try {
+        localStorage.removeItem('thl_token');
+        localStorage.removeItem('thl_user');
         const data = await login(email, password);
         saveAuth(data);
-        const user = getCurrentUser();
+        const role = data.role;
         
-        if (user.role === 'customer') window.location.href = 'order-history.html';
-        else if (user.role === 'chef') window.location.href = 'chef-dashboard.html';
-        else if (user.role === 'delivery') window.location.href = 'delivery-dashboard.html';
-        else if (user.role === 'cashier') window.location.href = 'cashier-dashboard.html';
-        else if (user.role === 'staff') window.location.href = 'staff-dashboard.html';
-        else if (user.role === 'admin') window.location.href = 'admin-dashboard.html';
+        if (role === 'customer') window.location.href = 'order-history.html';
+        else if (role === 'chef') window.location.href = 'chef-dashboard.html';
+        else if (role === 'delivery') window.location.href = 'delivery-dashboard.html';
+        else if (role === 'cashier') window.location.href = 'cashier-dashboard.html';
+        else if (role === 'staff') window.location.href = 'staff-dashboard.html';
+        else if (role === 'admin') window.location.href = 'admin-dashboard.html';
         else window.location.href = 'index.html';
       } catch (err) {
         errorMsg.textContent = err.message || 'Login failed';

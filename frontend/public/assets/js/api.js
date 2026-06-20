@@ -65,7 +65,7 @@ async function getMyOrders() {
 }
 
 async function getAllOrders() {
-  return await apiRequest("/orders");
+  return await apiRequest("/orders", { cache: "no-store" });
 }
 
 async function getOrder(orderId) {
@@ -84,7 +84,7 @@ async function getUsers() {
 }
 
 async function getAdminSummary() {
-  return await apiRequest("/admin/summary");
+  return await apiRequest("/admin/summary", { cache: "no-store" });
 }
 
 async function createProduct(productData) {

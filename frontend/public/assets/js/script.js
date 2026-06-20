@@ -256,29 +256,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function playAnimation() {
     let newHtml = "";
-    let delay = 0.2; // Start after a short delay
+    let delay = 0.2;
 
     textLines.forEach(line => {
-      // Plain text part
-      for (let char of line.plain) {
-        if (char === " ") {
-          newHtml += " ";
-        } else {
-          newHtml += `<span class="letter-anim" style="animation-delay: ${delay}s">${char}</span>`;
-          delay += 0.05;
-        }
-      }
-      
-      // Emphasized part
-      newHtml += "<em>";
-      for (let char of line.em) {
-        newHtml += `<span class="letter-anim" style="animation-delay: ${delay}s">${char}</span>`;
-        delay += 0.05;
-      }
-      newHtml += "</em><br>";
-      delay += 0.2; // Pause before the next line
+      newHtml += `<span class="line-anim"><span class="word-anim" style="animation-delay: ${delay}s">${line.plain.trim()}</span> `;
+      delay += 0.1;
+      newHtml += `<em><span class="word-anim" style="animation-delay: ${delay}s">${line.em}</span></em></span><br>`;
+      delay += 0.3;
     });
-    
+
     heroTitle.innerHTML = newHtml;
   }
 

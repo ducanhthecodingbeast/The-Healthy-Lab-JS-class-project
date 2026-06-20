@@ -55,13 +55,24 @@ function statusPill(status) {
 }
 
 async function loadSummary() {
-  const summary = await getAdminSummary();
+  const [summary, orders, payments] = await Promise.all([getAdminSummary(), getAllOrders(), getPayments()]);
+  const orderSummary = orders.reduce((totals, order) => {
+    totals.total_orders += 1;
+    if (order.status === 'pending') totals.pending_orders += 1;
+    if (order.status === 'preparing' || order.status === 'ready') totals.kitchen_orders += 1;
+    if (order.status === 'delivering' || order.status === 'delivered') totals.delivery_orders += 1;
+    return totals;
+  }, { total_orders: 0, pending_orders: 0, kitchen_orders: 0, delivery_orders: 0 });
+  const totalRevenue = (payments || []).reduce((sum, payment) => {
+    return payment.status === 'paid' ? sum + Number(payment.amount || 0) : sum;
+  }, 0);
+
   document.getElementById('summary-container').innerHTML = `
-    <div class="summary-card"><h3>Total Orders</h3><p>${summary.total_orders}</p></div>
-    <div class="summary-card"><h3>Pending</h3><p>${summary.pending_orders}</p></div>
-    <div class="summary-card"><h3>Kitchen</h3><p>${summary.kitchen_orders || 0}</p></div>
-    <div class="summary-card"><h3>Delivery</h3><p>${summary.delivery_orders || 0}</p></div>
-    <div class="summary-card"><h3>Revenue</h3><p>${money(summary.total_revenue)}</p></div>
+    <div class="summary-card"><h3>Total Orders</h3><p>${orderSummary.total_orders}</p></div>
+    <div class="summary-card"><h3>Pending</h3><p>${orderSummary.pending_orders}</p></div>
+    <div class="summary-card"><h3>Kitchen</h3><p>${orderSummary.kitchen_orders}</p></div>
+    <div class="summary-card"><h3>Delivery</h3><p>${orderSummary.delivery_orders}</p></div>
+    <div class="summary-card"><h3>Revenue</h3><p>${money(totalRevenue)}</p></div>
     <div class="summary-card"><h3>Customers</h3><p>${summary.total_customers}</p></div>
   `;
 }

@@ -16,7 +16,7 @@ Base = declarative_base()
 
 
 def create_db_and_tables():
-    from database import models  # noqa: F401
+    import models  # noqa: F401
 
     Base.metadata.create_all(bind=engine)
     apply_startup_schema_patches()

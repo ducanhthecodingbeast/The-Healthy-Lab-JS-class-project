@@ -4,10 +4,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const container = document.getElementById('orders-container');
   const statActive = document.getElementById('stat-active');
   const statDelivered = document.getElementById('stat-delivered');
+  let loadOrdersRequestId = 0;
 
   async function loadOrders() {
+    const requestId = ++loadOrdersRequestId;
     try {
       const allOrders = await getAllOrders();
+      if (requestId !== loadOrdersRequestId) return;
       
       const orders = allOrders.filter(o => o.status === 'ready' || o.status === 'delivering');
       const deliveredToday = allOrders.filter(o => o.status === 'delivered').length; // roughly
@@ -57,14 +60,16 @@ document.addEventListener('DOMContentLoaded', () => {
         container.insertAdjacentHTML('beforeend', html);
       });
     } catch (err) {
-      container.innerHTML = `<p style="color: red; font-size: 1.6rem;">Error loading orders: ${err.message}</p>`;
+      if (requestId === loadOrdersRequestId) {
+        container.innerHTML = `<p style="color: red; font-size: 1.6rem;">Error loading orders: ${err.message}</p>`;
+      }
     }
   }
 
   window.updateStatus = async function(id, status) {
     try {
       await updateOrderStatus(id, status);
-      loadOrders();
+      await loadOrders();
     } catch (err) {
       alert('Failed to update status: ' + err.message);
     }

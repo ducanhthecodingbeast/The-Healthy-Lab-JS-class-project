@@ -5,6 +5,8 @@ services:
       dockerfile: frontend/Dockerfile
     ports:
       - "5500:5500"
+    volumes:
+      - ./frontend/public:/usr/share/nginx/html:ro
     depends_on:
       - backend
     restart: unless-stopped
@@ -16,6 +18,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
+      - ./backend:/app
       - healthy_lab_db:/app/data
     environment:
       - DATABASE_URL=sqlite:////app/data/healthy_lab.db
